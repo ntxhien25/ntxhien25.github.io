@@ -1,0 +1,314 @@
+/* =========================================================================================
+   PROJECT: GLOBAL EFFECTIVE TAX RATE (ETR) & OECD PILLAR 2 COMPLIANCE ANALYTICS
+   AUTHOR: Nguyen Thi Xuan Hien | Business Intelligence & Tax Technology
+   PLATFORM: Power BI / DAX / Tabular Data Model
+   DESCRIPTION: Enterprise-grade DAX measure library for calculating consolidated GAAP/IFRS
+                effective tax rates, statutory variances, OECD BEPS Pillar 2 GloBE Top-Up 
+                tax liabilities, safe harbour qualification, and time intelligence trends.
+   ========================================================================================= */
+
+// =========================================================================================
+// TABLE: _Measures_GAAP_Financials
+// Description: Core income statement aggregates and baseline financial indicators.
+// =========================================================================================
+
+/// Total Pre-Tax Accounting Profit (GAAP / IFRS Profit Before Tax)
+[Total Pre-Tax Profit USD] = 
+SUMX(
+    Fact_EntityFinancials,
+    Fact_EntityFinancials[Profit_Before_Tax_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate])
+)
+
+/// Total Accounting Revenue across all consolidated entities
+[Total Consolidated Revenue USD] = 
+SUMX(
+    Fact_EntityFinancials,
+    Fact_EntityFinancials[Revenue_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate])
+)
+
+/// Total Current Income Tax Expense (booked in P&L for current year taxes)
+[Current Tax Expense USD] = 
+SUMX(
+    Fact_EntityFinancials,
+    Fact_EntityFinancials[Current_Tax_Expense_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate])
+)
+
+/// Total Deferred Income Tax Expense / (Benefit) (origination & reversal of temporary differences)
+[Deferred Tax Expense USD] = 
+SUMX(
+    Fact_EntityFinancials,
+    Fact_EntityFinancials[Deferred_Tax_Expense_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate])
+)
+
+/// Total Income Tax Provision (Current + Deferred Tax Expense)
+[Total Tax Provision USD] = 
+[Current Tax Expense USD] + [Deferred Tax Expense USD]
+
+/// Net Profit After Tax (NPAT)
+[Net Profit After Tax USD] = 
+[Total Pre-Tax Profit USD] - [Total Tax Provision USD]
+
+/// Net Profit Margin %
+[Net Profit Margin %] = 
+DIVIDE([Net Profit After Tax USD], [Total Consolidated Revenue USD], BLANK())
+
+
+// =========================================================================================
+// TABLE: _Measures_Effective_Tax_Rate
+// Description: Effective Tax Rate (ETR) calculation and statutory rate variance reconciliation.
+// =========================================================================================
+
+/// Consolidated Effective Tax Rate (GAAP ETR = Total Tax Provision / Pre-Tax Income)
+[Effective Tax Rate] = 
+DIVIDE(
+    [Total Tax Provision USD],
+    [Total Pre-Tax Profit USD],
+    BLANK()
+)
+
+/// Headline / Benchmark Statutory Tax Rate (Weighted average statutory rate based on profit contribution)
+[Weighted Statutory Tax Rate] = 
+DIVIDE(
+    SUMX(
+        Dim_Jurisdiction,
+        CALCULATE([Total Pre-Tax Profit USD]) * Dim_Jurisdiction[Statutory_Tax_Rate]
+    ),
+    [Total Pre-Tax Profit USD],
+    BLANK()
+)
+
+/// ETR Variance to Statutory Rate (Measured in percentage points)
+/// Positive variance indicates tax inefficiency; negative variance indicates tax optimization.
+[ETR Variance to Statutory] = 
+[Effective Tax Rate] - [Weighted Statutory Tax Rate]
+
+/// ETR Variance expressed in Basis Points (bps) for executive reporting (1% = 100 bps)
+[ETR Variance in Basis Points] = 
+ROUND(([ETR Variance to Statutory] * 10000), 0)
+
+/// Tax Provision Impact of Permanent Book-Tax Differences (e.g., non-deductible penalties, tax-free dividends)
+[Permanent Differences Tax Impact USD] = 
+CALCULATE(
+    SUMX(
+        Fact_TaxAdjustments,
+        Fact_TaxAdjustments[Permanent_Adjustment_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate])
+    ),
+    Dim_TaxAdjustmentType[Category] = "Permanent"
+)
+
+/// Impact of Permanent Differences on Effective Tax Rate (ETR Delta %)
+[Permanent Differences ETR Impact %] = 
+DIVIDE(
+    [Permanent Differences Tax Impact USD],
+    [Total Pre-Tax Profit USD],
+    BLANK()
+)
+
+/// Tax Incentives / Concessionary Rate Savings (e.g., Pioneer status, High-Tech enterprise credits)
+[Tax Incentive Savings USD] = 
+CALCULATE(
+    SUMX(
+        Fact_TaxAdjustments,
+        Fact_TaxAdjustments[Tax_Incentive_Benefit_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate])
+    )
+)
+
+/// Tax Incentive ETR Impact %
+[Tax Incentive ETR Impact %] = 
+DIVIDE(
+    [Tax Incentive Savings USD],
+    [Total Pre-Tax Profit USD],
+    BLANK()
+)
+
+
+// =========================================================================================
+// TABLE: _Measures_OECD_Pillar_2_GloBE
+// Description: Pillar Two Global Anti-Base Erosion (GloBE) Minimum Tax Calculations (15%).
+// =========================================================================================
+
+/// GloBE Minimum Tax Standard Rate (OECD Target = 15.0%)
+[Pillar 2 Target Minimum Rate] = 0.15
+
+/// Pillar 2 Net Qualifying Income (GloBE Income before qualifying adjustments)
+[GloBE Qualifying Income USD] = 
+[Total Pre-Tax Profit USD] + 
+CALCULATE(
+    SUMX(Fact_TaxAdjustments, Fact_TaxAdjustments[GloBE_Income_Adjustments_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate]))
+)
+
+/// GloBE Adjusted Covered Taxes (Taxes paid eligible under Pillar 2 rules)
+[GloBE Covered Taxes USD] = 
+[Total Tax Provision USD] - 
+CALCULATE(
+    SUMX(Fact_TaxAdjustments, Fact_TaxAdjustments[Disallowed_Covered_Taxes_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate]))
+)
+
+/// Jurisdictional GloBE Effective Tax Rate (Evaluated per jurisdiction)
+[Jurisdictional GloBE ETR] = 
+DIVIDE(
+    [GloBE Covered Taxes USD],
+    [GloBE Qualifying Income USD],
+    BLANK()
+)
+
+/// Substance-Based Income Exclusion (SBIE) for Payroll:
+/// OECD carve-out: 9.8% (transition) phasing down to 5.0% of eligible payroll costs
+[SBIE Payroll Carve-Out USD] = 
+SUMX(
+    Fact_EntityFinancials,
+    Fact_EntityFinancials[Eligible_Payroll_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate]) * 0.098
+)
+
+/// Substance-Based Income Exclusion (SBIE) for Tangible Assets:
+/// OECD carve-out: 7.8% (transition) phasing down to 5.0% of carrying value of eligible tangible assets
+[SBIE Tangible Asset Carve-Out USD] = 
+SUMX(
+    Fact_EntityFinancials,
+    Fact_EntityFinancials[Eligible_Tangible_Assets_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate]) * 0.078
+)
+
+/// Total Substance-Based Income Exclusion (SBIE)
+[Total Substance-Based Income Exclusion USD] = 
+[SBIE Payroll Carve-Out USD] + [SBIE Tangible Asset Carve-Out USD]
+
+/// Excess Profit Subject to GloBE Top-Up Tax (GloBE Income minus SBIE Carve-Out)
+[Excess Profit Subject to Top-Up USD] = 
+MAX(
+    0,
+    [GloBE Qualifying Income USD] - [Total Substance-Based Income Exclusion USD]
+)
+
+/// Top-Up Tax Percentage Rate (Minimum 15% - Jurisdictional GloBE ETR, floored at 0%)
+[Top-Up Tax Rate %] = 
+VAR _JurisdictionETR = [Jurisdictional GloBE ETR]
+RETURN
+    IF(
+        ISBLANK(_JurisdictionETR) || _JurisdictionETR >= [Pillar 2 Target Minimum Rate],
+        0,
+        [Pillar 2 Target Minimum Rate] - _JurisdictionETR
+    )
+
+/// Jurisdictional Top-Up Tax Liability (Before Qualified Domestic Minimum Top-Up Tax - QDMTT)
+[Gross Jurisdictional Top-Up Tax USD] = 
+[Excess Profit Subject to Top-Up USD] * [Top-Up Tax Rate %]
+
+/// Qualified Domestic Minimum Top-Up Tax (QDMTT) offset paid locally in the source jurisdiction
+[Local QDMTT Payable USD] = 
+CALCULATE(
+    SUMX(
+        Fact_EntityFinancials,
+        Fact_EntityFinancials[QDMTT_Paid_LC] * RELATED(Dim_CurrencyRates[USD_Exchange_Rate])
+    )
+)
+
+/// Net Pillar 2 Top-Up Tax Liability under Income Inclusion Rule (IIR) at Ultimate Parent Entity
+[Net IIR Top-Up Tax Liability USD] = 
+MAX(0, [Gross Jurisdictional Top-Up Tax USD] - [Local QDMTT Payable USD])
+
+/// Transitional Safe Harbour Assessment:
+/// De Minimis Test (Revenue < €10M and GloBE Income < €1M) or Simplified ETR >= 15%
+[Transitional Safe Harbour Status] = 
+VAR _Revenue = [Total Consolidated Revenue USD]
+VAR _Income = [GloBE Qualifying Income USD]
+VAR _ETR = [Jurisdictional GloBE ETR]
+RETURN
+    SWITCH(
+        TRUE(),
+        _Revenue < 10800000 && _Income < 1080000, "De Minimis Qualified (Safe Harbour)",
+        _ETR >= 0.15, "Simplified ETR Safe Harbour Passed",
+        "Pillar 2 Calculation Required"
+    )
+
+/// Visual Status Indicator for Risk Matrix
+[Pillar 2 Compliance Risk Level] = 
+SWITCH(
+    TRUE(),
+    [Jurisdictional GloBE ETR] < 0.10, "High Exposure (ETR < 10%)",
+    [Jurisdictional GloBE ETR] < 0.15, "Moderate Exposure (10% - 15%)",
+    "Compliant (ETR >= 15%)"
+)
+
+
+// =========================================================================================
+// TABLE: _Measures_Time_Intelligence
+// Description: Multi-period variance analysis and trend modeling.
+// =========================================================================================
+
+/// Prior Year Pre-Tax Profit USD
+[Pre-Tax Profit Prior Year USD] = 
+CALCULATE(
+    [Total Pre-Tax Profit USD],
+    SAMEPERIODLASTYEAR(Dim_Date[Date])
+)
+
+/// Prior Year Tax Provision USD
+[Tax Provision Prior Year USD] = 
+CALCULATE(
+    [Total Tax Provision USD],
+    SAMEPERIODLASTYEAR(Dim_Date[Date])
+)
+
+/// Prior Year Effective Tax Rate
+[Effective Tax Rate Prior Year] = 
+CALCULATE(
+    [Effective Tax Rate],
+    SAMEPERIODLASTYEAR(Dim_Date[Date])
+)
+
+/// Effective Tax Rate Year-over-Year Delta (Basis Points)
+[ETR YoY Delta bps] = 
+VAR _CurrentETR = [Effective Tax Rate]
+VAR _PriorETR = [Effective Tax Rate Prior Year]
+RETURN
+    IF(
+        NOT(ISBLANK(_CurrentETR)) && NOT(ISBLANK(_PriorETR)),
+        ROUND((_CurrentETR - _PriorETR) * 10000, 0),
+        BLANK()
+    )
+
+/// Year-to-Date (YTD) Tax Provision
+[YTD Tax Provision USD] = 
+TOTALYTD([Total Tax Provision USD], Dim_Date[Date])
+
+/// Moving 12-Month Rolling Effective Tax Rate (Smoothing quarterly seasonality)
+[Rolling 12M Effective Tax Rate] = 
+VAR _RollingPeriod = DATESINPERIOD(Dim_Date[Date], MAX(Dim_Date[Date]), -12, MONTH)
+VAR _RollingTax = CALCULATE([Total Tax Provision USD], _RollingPeriod)
+VAR _RollingProfit = CALCULATE([Total Pre-Tax Profit USD], _RollingPeriod)
+RETURN
+    DIVIDE(_RollingTax, _RollingProfit, BLANK())
+
+
+// =========================================================================================
+// TABLE: _Measures_Scenario_Simulation (What-If Parameters)
+// Description: Sensitivity testing for statutory tax reform and supply chain transfer pricing.
+// =========================================================================================
+
+/// Selected What-If Corporate Tax Surcharge (Parameter range: -5% to +5%)
+[What-If Surcharge Value] = 
+SELECTEDVALUE('Param_TaxRateShift'[Value], 0.00)
+
+/// Simulated Pre-Tax Profit under Supply Chain Restructuring (Parameter range: 0% to +30%)
+[Simulated Pre-Tax Profit with Reallocation USD] = 
+VAR _ReallocationPct = SELECTEDVALUE('Param_ProfitReallocation'[Value], 0.00)
+RETURN
+    [Total Pre-Tax Profit USD] * (1 + _ReallocationPct)
+
+/// Simulated Total Tax Provision under combined Scenario
+[Simulated Tax Provision USD] = 
+SUMX(
+    Dim_Jurisdiction,
+    VAR _BaseProfit = CALCULATE([Simulated Pre-Tax Profit with Reallocation USD])
+    VAR _AdjustedStatRate = Dim_Jurisdiction[Statutory_Tax_Rate] + [What-If Surcharge Value]
+    RETURN
+        _BaseProfit * MAX(0, _AdjustedStatRate)
+)
+
+/// Simulated Effective Tax Rate under Scenario
+[Simulated Scenario ETR] = 
+DIVIDE([Simulated Tax Provision USD], [Simulated Pre-Tax Profit with Reallocation USD], BLANK())
+
+/// Variance between Simulated Scenario ETR and Actual Baseline ETR (in bps)
+[Scenario ETR Impact vs Baseline bps] = 
+([Simulated Scenario ETR] - [Effective Tax Rate]) * 10000
