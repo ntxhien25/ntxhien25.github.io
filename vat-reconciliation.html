@@ -111,23 +111,42 @@
     @media(max-width:700px) { .grid { grid-template-columns:1fr; } header { padding-top:40px; } .wrap { width:calc(100% - 30px); } }
 
   </style>
-<style>.charts-grid{width:100%;max-width:100%;grid-template-columns:minmax(0,1fr);position:static;transform:none}.charts-grid figure{min-width:0;box-sizing:border-box}.charts-grid img{width:100%;max-width:100%;height:auto}</style></head>
-<body>
-<div class="wrap">
-<nav aria-label="Project navigation"><a href="index.html#projects">Back to portfolio</a><button aria-label="Switch to light mode" id="theme-toggle" title="Switch colour theme" type="button"><svg aria-hidden="true" class="sun-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path></svg><svg aria-hidden="true" class="moon-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"></path></svg></button></nav>
-<main>
-<header>
-<div class="eyebrow">Tax technology · Python · pandas</div>
-<h1>VAT invoice reconciliation</h1>
-<p class="lead">Help the VAT return preparer spend less time comparing invoice records and more time resolving exceptions before preparing the VAT return.</p>
-<span class="badge">Public demonstration</span>
-<div class="actions">
+<style>.charts-grid{width:100%;max-width:100%;grid-template-columns:minmax(0,1fr);position:static;transform:none}.charts-grid figure{min-width:0;box-sizing:border-box}.charts-grid img{width:100%;max-width:100%;height:auto}</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"><style>
+/* Shared project presentation: matched to the existing AR case study. */
+:root{--case-surface:#0e152e;--case-border:rgba(255,255,255,.08);--case-accent:#24b1b1;--case-text:#f8fafc;--case-secondary:#cbd5e1;--case-soft:#94a3b8;--case-wash:rgba(36,177,177,.15)}
+html[data-theme="light"]{--case-surface:#fff;--case-border:#e2e8f0;--case-accent:#007979;--case-text:#0f172a;--case-secondary:#334155;--case-soft:#64748b;--case-wash:rgba(0,121,121,.1)}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'IBM Plex Serif',Georgia,serif;font-weight:600;line-height:1.25;letter-spacing:-.015em}
+h1{font-size:clamp(2.25rem,4.5vw,3.25rem)}h2{font-size:clamp(1.6rem,3vw,2.1rem)}
+.case-nav{position:sticky;top:0;z-index:100;display:block;padding:16px 0;border-bottom:1px solid var(--case-border);background:rgba(8,12,29,.88);backdrop-filter:blur(16px)}
+html[data-theme="light"] .case-nav{background:rgba(248,249,250,.88)}
+.case-nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:38px}
+.case-brand{display:flex;align-items:center;gap:10px;color:var(--case-text);font-weight:700;font-size:1.125rem;text-decoration:none}.case-brand>svg{color:var(--case-accent);flex:0 0 20px;width:20px;height:20px;margin:0}.case-brand span{white-space:nowrap}
+.case-nav-actions{display:flex;align-items:center;gap:20px}.case-back{display:flex;align-items:center;gap:8px;color:var(--case-soft);text-decoration:none;font-size:.875rem;font-weight:500}
+.case-theme{width:38px;height:38px;display:grid;place-items:center;padding:8px;border:1px solid var(--case-border);border-radius:8px;background:transparent;color:var(--case-text)}.case-theme svg{width:19px;height:19px;margin:0}
+html[data-theme="dark"] .moon-icon,html[data-theme="light"] .sun-icon{display:none}
+.case-hero{max-width:none;padding:60px 0 40px;border-bottom:1px solid var(--case-border);background:linear-gradient(180deg,var(--case-wash) 0%,transparent 100%)}
+.case-hero h1{margin:24px 0 16px;max-width:100%;font-weight:600}.case-hero .lead{font-size:1.2rem;line-height:1.6;max-width:860px;margin:16px 0 0;color:var(--case-secondary)}
+.case-tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}.case-tag{font-family:'JetBrains Mono',Consolas,monospace;font-size:.75rem;font-weight:500;padding:4px 12px;border-radius:6px;background:var(--case-wash);color:var(--case-accent);border:1px solid rgba(36,177,177,.35)}
+.case-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;background:var(--case-surface);border:1px solid var(--case-border);border-radius:12px;padding:24px;margin:36px 0 10px;box-shadow:0 12px 32px rgba(0,0,0,.12)}
+.case-meta-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--case-soft);margin-bottom:6px;font-weight:600}.case-meta-value{font-size:1rem;font-weight:600;color:var(--case-text)}
+.case-hero .actions{display:flex;gap:14px;flex-wrap:wrap;margin:24px 0 0}.case-hero .button{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--case-text);border:1px solid var(--case-border);padding:11px 20px;border-radius:8px;font-size:.92rem;font-weight:600;text-decoration:none}.case-hero .button.primary{background:var(--case-accent);border-color:var(--case-accent);color:white;box-shadow:0 4px 14px rgba(36,177,177,.3)}
+.case-hero .notice{margin-top:24px;max-width:100%;font-size:.82rem}.case-hero .notice p{margin:0}.case-footer{max-width:1080px;margin:40px auto 0;border-top:1px solid var(--case-border);padding:36px 24px 50px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.case-footer a{color:var(--case-accent)}
+main>.section,main>section{scroll-margin-top:90px}.metric{border-color:var(--case-border);position:relative;overflow:hidden;border-radius:12px}.metric:before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--case-accent)}.metric .number{font-family:'IBM Plex Serif',Georgia,serif;color:var(--case-accent);font-weight:700}
+@media(max-width:768px){.case-meta{grid-template-columns:1fr 1fr}.case-nav-actions{gap:12px}.case-back{font-size:.75rem}.case-brand{font-size:1rem}.case-hero{padding:40px 0 30px}.case-hero .actions{gap:10px}.case-hero .button{padding:10px 14px;font-size:.83rem}}
+@media(max-width:480px){.case-meta{grid-template-columns:1fr}.wrap{padding:0 20px}.case-hero .actions{flex-direction:column;align-items:stretch}.case-hero .button{justify-content:center}.case-back{max-width:115px}}
+@media print{.case-nav,.case-hero .actions{display:none}.case-hero{padding:20px 0;background:none}.case-meta{box-shadow:none}.case-meta-value{color:#172033}}
+
+main>section{background:var(--case-surface);border:1px solid var(--case-border);border-radius:16px;padding:36px;margin:36px 0;box-shadow:0 12px 32px rgba(0,0,0,.12)}main>section:first-child{padding:0;border:0;background:none;box-shadow:none}.panel{background:var(--bg);border-color:var(--case-border);position:relative;overflow:hidden}.panel .number{font-family:'IBM Plex Serif',Georgia,serif;font-size:2.2rem;font-weight:700;color:var(--case-accent)}main>section:first-child .panel:before{content:'';position:absolute;left:0;top:0;height:100%;width:4px;background:var(--case-accent)}.table-scroll{border:1px solid var(--case-border);border-radius:10px}.charts-grid figure{border:1px solid var(--case-border)}@media(max-width:768px){main>section{padding:24px}}
+</style></head>
+<body><nav class="case-nav" aria-label="Project navigation"><div class="wrap case-nav-inner"><a class="case-brand" href="https://ntxhien25.github.io/"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5"/></svg><span>Hien Nguyen</span></a><div class="case-nav-actions"><a class="case-back" href="https://ntxhien25.github.io/#projects"><span aria-hidden="true">←</span> Portfolio Projects</a><button class="case-theme" id="theme-toggle" aria-label="Switch to light mode" title="Switch colour theme" type="button"><svg aria-hidden="true" class="sun-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg aria-hidden="true" class="moon-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg></button></div></div></nav><header class="case-hero"><div class="wrap"><div class="case-tags"><span class="case-tag">Python &amp; pandas</span><span class="case-tag">GDT &amp; MISA</span><span class="case-tag">Invoice Reconciliation</span><span class="case-tag">Exception Review</span><span class="case-tag">Traceable Amount Checks</span></div><h1>VAT Invoice Reconciliation Engine</h1><p class="lead">Help the VAT return preparer spend less time comparing invoice records and more time resolving exceptions before preparing the VAT return.</p><div class="case-meta"><div><div class="case-meta-label">Domain expertise</div><div class="case-meta-value">VAT &amp; Tax Technology</div></div><div><div class="case-meta-label">Demonstration scope</div><div class="case-meta-value">839 Input · 189 Output Invoices</div></div><div><div class="case-meta-label">Validation</div><div class="case-meta-value">3 Amount Checks · 21 Tests</div></div><div><div class="case-meta-label">Management value</div><div class="case-meta-value">Traceable Exception Review</div></div></div><div class="actions">
 <a class="button primary" href="VAT_Reconciliation_Demo.html">Read the notebook</a>
 <a class="button" download="" href="vat-reconciliation-demo.zip">Download project files</a>
 <a class="button" download="" href="VAT_Reconciliation_Demo.ipynb">Download notebook</a>
 <a class="button" href="https://github.com/ntxhien25/vat-invoice-reconciliation" rel="noopener noreferrer" target="_blank">View code on GitHub</a>
-</div>
-</header>
+</div></div></header><main class="wrap">
+
 <section aria-label="Project scope">
 <div class="grid">
 <div class="panel"><div class="number">3</div><h3>Independent amount checks</h3><p>Value excluding VAT, invoice total and VAT amount.</p></div>
@@ -213,9 +232,7 @@ data["key_invoice_number"] = data.invoice_number.map(comparison_identifier)</cod
 <p>The project includes four GDT Excel files and one MISA workbook, retaining the source headers, column order and worksheet layouts. Company names, addresses, tax codes, invoice numbers and series have been replaced, and amounts varied consistently across corresponding records. Additional sample records preserve the matching and review patterns of the baseline. Only the input and output schedules are populated for reconciliation; other MISA worksheets retain their template layouts. Both notebooks use the same readers and reconciliation logic. Original confidential workbooks and tax-portal access components remain private.</p>
 <p>Review classifications document project rules. They do not independently establish document type or eligibility for an input VAT credit. Demonstration results are not presented as measured client savings.</p>
 </section>
-</main>
-<footer>VAT invoice reconciliation</footer>
-</div>
+</main><footer class="case-footer"><span>VAT Invoice Reconciliation Engine · Hien Nguyen</span><a href="https://ntxhien25.github.io/#projects">Return to Portfolio Overview ↑</a></footer>
 <dialog aria-label="Expanded reconciliation chart" class="chart-viewer" id="chart-viewer"><button id="close-chart" type="button">Close chart</button><img alt="" id="expanded-chart"/></dialog>
 <script>
 
