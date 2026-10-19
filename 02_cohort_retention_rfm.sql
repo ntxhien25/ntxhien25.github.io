@@ -1,3 +1,5 @@
+-- ARCHIVED DRAFT: under revision, not evidence of professional delivery.
+-- Unvalidated illustrative code; not a production implementation or compliance tool.
 -- =========================================================================================
 -- PROJECT: ENTERPRISE FINANCIAL TRANSACTIONS & REVENUE COHORT ANALYTICS
 -- AUTHOR: Nguyen Thi Xuan Hien | Business Intelligence & Data Analytics

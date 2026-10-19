@@ -1,8 +1,10 @@
+// ARCHIVED DRAFT: under revision, not evidence of professional delivery.
+// Unvalidated illustrative code; not a production implementation or compliance tool.
 /* =========================================================================================
    PROJECT: GLOBAL EFFECTIVE TAX RATE (ETR) & OECD PILLAR 2 COMPLIANCE ANALYTICS
    AUTHOR: Nguyen Thi Xuan Hien | Business Intelligence & Tax Technology
    PLATFORM: Power BI / DAX / Tabular Data Model
-   DESCRIPTION: Enterprise-grade DAX measure library for calculating consolidated GAAP/IFRS
+   DESCRIPTION: Unvalidated illustrative DAX draft for calculating consolidated GAAP/IFRS
                 effective tax rates, statutory variances, OECD BEPS Pillar 2 GloBE Top-Up 
                 tax liabilities, safe harbour qualification, and time intelligence trends.
    ========================================================================================= */

@@ -1,8 +1,10 @@
+# ARCHIVED DRAFT: under revision, not evidence of professional delivery.
+# Unvalidated illustrative code; not a production implementation or compliance tool.
 """
 =========================================================================================
 PROJECT: REAL ESTATE CASH FLOW & PROPERTY VALUATION TIME-SERIES FORECASTING
 AUTHOR: Nguyen Thi Xuan Hien | Business Intelligence & Financial Data Analytics
-DESCRIPTION: End-to-end production Python analytics pipeline featuring synthetic portfolio
+DESCRIPTION: Illustrative Python analytics draft featuring synthetic portfolio
              data synthesis, feature engineering, time-series forecasting (Walk-Forward CV),
              and Discounted Cash Flow (DCF) asset valuation under multi-scenario stress tests.
 =========================================================================================
