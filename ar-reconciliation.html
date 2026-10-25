@@ -239,6 +239,14 @@
         }
     </style>
 <link rel="stylesheet" href="portfolio-case.css?v=20261019-details"/>
+<style id="ar-contribution-style">
+.contribution-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.contribution-grid .contribution-title { font-family: var(--font-body); font-size: 1.25rem; line-height: 1.35; font-weight: 700; color: var(--color-accent); margin: 0 0 14px; }
+.contribution-grid .kpi-card p { margin: 0; font-size: 1rem; line-height: 1.65; }
+.hero-tools-line { display:flex; flex-wrap:nowrap; gap:8px; margin:0 0 20px; }
+.hero-tools-line .tech-pill { white-space:nowrap; font-size:clamp(.55rem, 1.8vw, .75rem); padding:4px clamp(4px, 1vw, 12px); }
+@media (max-width: 760px) { .contribution-grid { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 <a class="case-skip" href="#case-content">Skip to case study</a>
@@ -261,36 +269,11 @@
 </nav>
 <header class="hero-section">
 <div class="container">
-<div class="tag-row">
-<span class="tech-pill">Python &amp; PowerShell</span>
-<span class="tech-pill">MISA SME ERP</span>
-<span class="tech-pill">Automated Reconciliation</span>
-<span class="tech-pill">Contractual Aging</span>
-<span class="tech-pill">OpenXML / COM Dashboard</span>
-<span class="tech-pill">Executive Risk Controls</span>
-</div>
+<div class="hero-tools-line"><span class="tech-pill">Excel dashboard</span><span class="tech-pill">Python</span><span class="tech-pill">PowerShell</span><span class="tech-pill">MISA exports</span></div>
 <h1>Accounts Receivable Intelligence &amp; Reconciliation Engine</h1><aside class="evidence-note"><strong>Work-informed public example</strong><p>Aggregate-calibrated fictional records illustrate a work-informed method. Invoice details are fictional; aggregate balances and chart proportions retain the earlier presentation.</p></aside>
 <p class="hero-lead">
-                A familiar Excel dashboard that helps management review receivables by customer, staff member and ageing status, and focus collection follow-up.
+                I turned an emailed receivables summary into an Excel dashboard that helped the business owner see which balances needed attention and whom to follow up with.
             </p>
-<div class="meta-strip">
-<div>
-<div class="meta-cell-label">Domain Expertise</div>
-<div class="meta-cell-val">Enterprise AR &amp; Credit Risk</div>
-</div>
-<div>
-<div class="meta-cell-label">Portfolio Scale</div>
-<div class="meta-cell-val">51.06B VND · 7 Customer Groups</div>
-</div>
-<div>
-<div class="meta-cell-label">Governance Benchmark</div>
-<div class="meta-cell-val">Demo Review Threshold: 20%</div>
-</div>
-<div>
-<div class="meta-cell-label">Management Value</div>
-<div class="meta-cell-val">Customer and Staff Visibility</div>
-</div>
-</div>
 <div class="btn-row">
 <a class="btn-action-primary" download="" href="AR_Intelligence_Reconciliation_DEMO.xlsx">
 <i data-lucide="download" style="width: 17px; height: 17px;"></i>
@@ -304,65 +287,64 @@
 <i data-lucide="layout-template" style="width: 17px; height: 17px;"></i>
 <span>Why Excel vs. BI?</span>
 </a>
-<a class="btn-action-secondary" href="#technical-workflow">
-<i data-lucide="shield-check" style="width: 17px; height: 17px;"></i>
-<span>Reconciliation Checks</span>
-</a>
-<a class="btn-action-secondary" href="https://github.com/ntxhien25" rel="noopener noreferrer" target="_blank">
+
+<a class="btn-action-secondary" href="https://github.com/ntxhien25/ntxhien25.github.io/tree/main/projects/ar-intelligence" rel="noopener noreferrer" target="_blank">
 <i data-lucide="github" style="width: 17px; height: 17px;"></i>
-<span>GitHub Profile</span>
+<span>AR Project on GitHub</span>
 </a>
 </div>
 </div>
 </header>
-<main class="container" id="case-content"><nav class="case-contents" aria-label="On this page"><span>IN THIS CASE</span><a href="#situation-heading">Receivables and collection priorities</a><a href="#problem-heading">From an emailed summary to a clearer view of receivables</a><a href="#solution-heading">Turn balance summaries into collection priorities</a><a href="#case-section-4">Automated preparation, a familiar Excel interface</a><a href="#case-section-5">Executive Dashboard & Risk Analytics</a><a href="#case-section-6">Checks behind the dashboard</a><a href="#case-section-7">Demonstration Deliverables</a></nav>
-<div class="kpi-grid">
-<div class="kpi-card"><div class="kpi-number">51.06B <span class="sub">VND</span></div><p class="kpi-label"><strong>Public demo balance:</strong> 98 current invoices across 7 customer groups.</p></div>
-<div class="kpi-card"><div class="kpi-number">19.2%</div><p class="kpi-label"><strong>Overdue receivables:</strong> 9.80B VND, including balances over 60 days. Displayed against a 20% demo review threshold.</p></div>
-<div class="kpi-card"><div class="kpi-number">Customer &amp; staff</div><p class="kpi-label"><strong>Filterable views:</strong> Identify which customer balances and staff portfolios require collection follow-up.</p></div>
-<div class="kpi-card"><div class="kpi-number">Fictional data</div><p class="kpi-label">Fictional invoice details retain the earlier aggregate presentation. Figures are not new measured outcomes.</p></div>
+<main class="container" id="case-content"><nav class="case-contents" aria-label="On this page"><span>IN THIS CASE</span><a href="#situation-heading">The story</a><a href="#dashboard-visuals">Dashboard</a><a href="#case-section-7">Downloads</a></nav>
+<div class="kpi-grid contribution-grid" aria-label="My contribution at a glance">
+<div class="kpi-card"><h2 class="contribution-title">My initiative</h2><p>Conceived and built the dashboard without a request or predefined brief from the owner.</p></div>
+<div class="kpi-card"><h2 class="contribution-title">From totals to priorities</h2><p>Added ageing analysis, period comparisons and collection responsibility to the existing balance summary.</p></div>
+<div class="kpi-card"><h2 class="contribution-title">Value recognised</h2><p>Seeing the dashboard helped the owner recognise what the report could provide and identify whom to remind about collections.</p></div>
 </div>
 <!-- Box 1: The Situation -->
 <section aria-labelledby="situation-heading" class="presentation-card">
 <div class="phase-badge">The Situation</div>
-<h2 id="situation-heading">Receivables and collection priorities</h2>
-<p>Receivables reporting brings invoice balances, due dates and collection responsibilities together. This fictional example uses varied payment terms and partial receipts to illustrate the workflow.</p>
-<p>Customer, staff and ageing views help a reviewer identify balances requiring follow-up. Demonstration volumes and dates do not describe a particular company.</p>
+<h2 id="situation-heading">An improvement I initiated</h2>
+<p>The owner had not asked for a dashboard or communicated specific reporting requirements. I saw an opportunity to make the existing receivables report more useful and conceived the dashboard myself.</p>
+<p>Showing the finished dashboard helped the owner recognise what a more informative report could offer and appreciate the value of the work.</p>
 </section>
 <!-- Box 2: The Problem -->
 <section aria-labelledby="problem-heading" class="presentation-card">
 <div class="phase-badge">Before the workflow</div>
 <h2 id="problem-heading">From an emailed summary to a clearer view of receivables</h2>
-<p>A basic receivables report may be an Excel summary of outstanding, due and overdue balances by customer. It can show totals while offering limited detail on ageing, changes since the previous report and responsibility for collection.</p>
-<p>The example extends a balance summary into customer, staff and status views. Its workflow is informed by reporting experience; fictional invoice details are calibrated to the earlier aggregate presentation.</p>
+<p>The previous report was an emailed Excel summary of outstanding, due and overdue balances by customer. It did not include ageing analysis, comparisons with the previous report or a view of collection responsibility.</p>
+<p>I developed the dashboard on my own initiative, bringing together ageing analysis, period comparisons and customer, staff and status filters. These views turned a balance summary into a practical tool for identifying collection priorities and deciding whom to follow up with.</p>
 <div class="table-scroll"><table><thead><tr><th>Previous summary</th><th>Additional management view</th></tr></thead><tbody>
 <tr><td>Outstanding totals by customer</td><td>Customer filters and invoice-level detail</td></tr>
-<tr><td>Due, overdue and older balances</td><td>Ageing bands and comparison with the previous report</td></tr>
-<tr><td>Collection follow-up by email</td><td>Balances and overdue status by responsible staff member</td></tr>
+<tr><td>No ageing analysis</td><td>Ageing bands showing how long balances have been overdue</td></tr>
+<tr><td>No comparison with the previous report</td><td>Current and prior balances shown together</td></tr>
+<tr><td>No view of collection responsibility</td><td>Balances and overdue status by responsible staff member</td></tr>
 </tbody></table></div>
 </section>
 <!-- Box 3: The Strategic Transformation & Workflow -->
 <section aria-labelledby="solution-heading" class="presentation-card">
-<div class="phase-badge">The strategic transformation</div>
+<div class="phase-badge">My contribution</div>
 <h2 id="solution-heading">Turn balance summaries into collection priorities</h2>
-<p>A reporting framework was designed around the decisions management could make from the data: which customers account for the exposure, how long invoices have been overdue and which staff members should follow up. Invoice balances, due dates, customer terms and staff assignments were brought together in an interactive Excel dashboard.</p>
+<p>I designed the reporting framework to answer practical collection questions: which customers account for the exposure, how long invoices have been overdue and which staff members should follow up. Invoice balances, due dates, customer terms and staff assignments were brought together in an interactive Excel dashboard.</p>
 <ul><li>Compare current and previous receivables balances.</li><li>Review invoice ageing and upcoming due dates.</li><li>Identify the staff members responsible for following up with each customer.</li><li>Check that customer and staff breakdowns reconcile to the invoice ledger.</li></ul>
-<p>The intended value is clearer management visibility, supported by filters and invoice-level detail. The demonstration does not measure business outcomes.</p>
+<p>The workflow was adopted, and the owner confirmed that the report made it easier to identify whom to remind about collections. This is qualitative feedback on the report’s usefulness; no measured cash-collection improvement or time saving is claimed.</p>
+<div class="pull-quote"><strong>“Thanks em. It is the comprehensive report and then easy to see who I shall remind in collection.”</strong><br/><span style="font-size:0.9rem;">Company owner, following adoption of the reporting workflow</span></div>
 
 </section>
 <!-- Box 4: Strategic Tooling Choice -->
 <section class="presentation-card" id="tooling-rationale">
 <div class="phase-badge">System architecture &amp; user adoption</div><h2 id="case-section-4">Automated preparation, a familiar Excel interface</h2>
-<p>The design separates data preparation from the management view: invoice records, credit terms and staff assignments feed the calculations, while Excel presents the KPIs, ageing analysis and collection filters. Reconciliation checks keep the dashboard tied to its supporting invoice schedules.</p>
-<p>Excel provides a familiar interface. Users can inspect records, filter the dashboard and share the workbook through the existing email process, without learning a separate reporting interface.</p>
-<p>Power BI or a Python web application could suit a different reporting environment. A familiar workbook keeps the calculations, native charts and review checks accessible in one file.</p>
+<p>The dashboard brings invoice details, payment terms and collection responsibilities into one Excel view, helping the owner see which balances need attention and who should follow up.</p>
+<p>I chose Excel because the accounting and commercial teams already used it. Staff could inspect records, filter the dashboard and share the workbook through the existing email process, without learning a separate reporting interface.</p>
+<p>Power BI or a Python web application could suit a different reporting environment. For this team, a familiar workbook supported adoption and kept the calculations, native charts and review checks accessible in one file.</p>
 </section>
 <!-- Box 5: Visualizations & Analytics -->
 <section class="presentation-card" id="dashboard-visuals">
-<div class="phase-badge">Phase 05 · Visual Analytics &amp; Risk Gauges</div>
+<div class="phase-badge">Visual Analytics &amp; Risk Gauges</div>
 <h2 id="case-section-5">Executive Dashboard &amp; Risk Analytics</h2>
 <p>
-                The visuals below are generated from the aggregate-calibrated fictional workbook. Select any chart to inspect full details in high resolution.
+                <strong>About the public example:</strong> The story and owner feedback relate to my actual work. The public workbook uses fictional invoice details while retaining the previously displayed aggregate balances and proportions.</p>
+<p>Select any chart to inspect full details in high resolution.
             </p>
 <div class="charts-grid">
 <figure>
@@ -392,21 +374,7 @@
 </div>
 </section>
 <!-- Box 5: The 8-Rule Verification Gate -->
-<section class="presentation-card" id="technical-workflow">
-<div class="phase-badge">Reconciliation controls</div><h2 id="case-section-6">Checks behind the dashboard</h2>
-<div class="grid-2"><div class="sub-panel"><h3>Source and amount checks</h3><ul>
-<li>Only records with an outstanding receivables balance greater than zero are included for review.</li>
-<li>Invoice gross amount less receipts applied must equal the outstanding balance.</li>
-<li>Current and prior invoice schedules support the period comparison.</li>
-</ul></div><div class="sub-panel"><h3>Coverage checks</h3><ul>
-<li>Customer totals reconcile to the selected invoice balance.</li>
-<li>Staff totals include every selected invoice.</li>
-<li>Ageing bands reconcile to the selected invoice balance.</li>
-</ul></div></div>
-<details style="margin-top:20px;"><summary>View the invoice amount check</summary><pre><code>=SUM('Current AR'!G6:G160)
- - SUM('Current AR'!H6:H160)
- - SUM('Current AR'!I6:I160)</code></pre><p>A zero result confirms that gross amounts less receipts equal the outstanding balance.</p></details>
-</section>
+
 <!-- Box 6: Technical Evidence & Deliverables -->
 <section class="presentation-card">
 <div class="phase-badge">Technical Evidence &amp; Downloads</div>
@@ -418,10 +386,10 @@
 <h3 style="margin-top: 28px;">Scope of the fictional demonstration</h3>
 <p>
                 Invoice details are fictional. Aggregate balances, customer/staff distributions and ageing proportions retain the earlier public presentation. The model preserves the reporting method and formula architecture, not source business records. The 20% threshold is illustrative, not a company policy.</p>
-<div class="btn-row" style="margin-top: 28px;"><a class="btn-action-secondary" href="05-enterprise-ar-automation-README.md">Read project notes</a>
-<a class="btn-action-secondary" href="https://github.com/ntxhien25" rel="noopener noreferrer" target="_blank">
+<div class="btn-row" style="margin-top: 28px;">
+<a class="btn-action-secondary" href="https://github.com/ntxhien25/ntxhien25.github.io/tree/main/projects/ar-intelligence" rel="noopener noreferrer" target="_blank">
 <i data-lucide="github" style="width: 17px; height: 17px;"></i>
-<span>View GitHub Profile</span>
+<span>View AR Project on GitHub</span>
 </a>
 <a class="btn-action-secondary" href="index.html#projects">
 <i data-lucide="arrow-left" style="width: 17px; height: 17px;"></i>

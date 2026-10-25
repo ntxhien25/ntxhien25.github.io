@@ -11,6 +11,19 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <link href="portfolio-updates.css?v=20261019-details" rel="stylesheet"/>
+<style id="tool-icons-style">
+.tool-tag { display:inline-flex; align-items:center; gap:8px; max-width:100%; }
+.tool-icon { flex:0 0 18px; width:18px; height:18px; color:var(--accent); }
+.tool-tag > span { min-width:0; }
+.brand-icon { display:inline-flex; align-items:center; justify-content:center; flex:0 0 28px; width:28px; height:28px; padding:3px; background:#fff; border-radius:5px; }
+.brand-icon.brand-wide { flex-basis:42px; width:42px; }
+.brand-icon img { display:block; width:100%; height:100%; object-fit:contain; }
+.project-ar .tag-row { gap:5px; flex-wrap:wrap; }
+.project-ar .tool-tag { gap:5px; padding:4px 6px; font-size:.68rem; line-height:1.35; border-radius:7px; white-space:nowrap; }
+.project-ar .brand-icon { flex-basis:16px; width:16px; height:16px; padding:1px; border-radius:3px; }
+.project-ar .brand-icon.brand-wide { flex-basis:24px; width:24px; }
+.project-ar .tool-icon { flex-basis:14px; width:14px; height:14px; }
+</style>
 </head>
 <body>
 <div aria-hidden="true" class="scroll-progress" id="scroll-progress"></div>
@@ -83,8 +96,8 @@
 <div class="card-content">
 <span class="featured-badge">Featured project</span><span class="caption text-tertiary">Work-informed public example</span>
 <h3 class="card-title">Accounts receivable intelligence</h3>
-<p class="card-desc"><strong>Problem:</strong> Unclear balances and collection priorities. <strong>Contribution:</strong> An Excel dashboard supported by Python, PowerShell and MISA exports. <strong>Outcome:</strong> Customer, staff and ageing views support review; the public workbook illustrates the method with 98 aggregate-calibrated fictional invoices.</p>
-<div class="tag-row"><span class="tag mono">Python</span><span class="tag mono">PowerShell</span><span class="tag mono">Excel Dashboard</span><span class="tag mono">MISA ERP</span><span class="tag mono">AR Reconciliation</span></div>
+<p class="card-desc"><strong>Initiative:</strong> Built an Excel AR dashboard on my own initiative.<br/><strong>Contribution:</strong> Added ageing analysis, period comparisons and collection responsibility.<br/><strong>Outcome:</strong> Clearer collection priorities and follow-up ownership.</p>
+<div class="tag-row"><span class="tag mono tool-tag"><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/python.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>Python</span></span><span class="tag mono tool-tag"><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/powershell.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>PowerShell</span></span><span class="tag mono tool-tag"><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/excel.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>Excel Dashboard</span></span><span class="tag mono tool-tag"><span class="brand-icon brand-wide"><img class="tool-brand-image" src="assets/tool-logos/misa.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>MISA ERP</span></span><span class="tag mono tool-tag"><svg class="tool-icon" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h7v18H4zM15 3h5v18h-5M6 7h3M6 11h3m4 4 2 2 5-5"/></svg><span>AR Reconciliation</span></span></div>
 <span>View Case Study &amp; Project Files →</span>
 </div>
 </a><a class="card project-vat" href="vat-reconciliation.html">
@@ -126,9 +139,9 @@
 <div class="grid grid-cols-2 reveal" data-delay="3">
 <div class="skill-group">
 <h3 class="skill-group-title">Reporting and reconciliation</h3>
-<div class="tag-row mb-xl"><a class="tag" href="#experience">Power BI ↗</a><a class="tag" href="ar-reconciliation.html">Excel ↗</a><a class="tag" href="vat-reconciliation.html">Python / pandas ↗</a><span class="tag">SAP exports</span><span class="tag">MISA</span><span class="tag">FAST</span><span class="tag">Invoice validation</span><span class="tag">Ledger reconciliations</span></div>
+<div class="tag-row mb-xl"><a class="tag tool-tag" href="#experience"><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/powerbi.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>Power BI ↗</span></a><a class="tag tool-tag" href="ar-reconciliation.html"><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/excel.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>Excel ↗</span></a><a class="tag tool-tag" href="vat-reconciliation.html"><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/python.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/pandas.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>Python / pandas ↗</span></a><span class="tag tool-tag"><span class="brand-icon brand-wide"><img class="tool-brand-image" src="assets/tool-logos/sap.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>SAP exports</span></span><span class="tag tool-tag"><span class="brand-icon brand-wide"><img class="tool-brand-image" src="assets/tool-logos/misa.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>MISA</span></span><span class="tag tool-tag"><span class="brand-icon brand-wide"><img class="tool-brand-image" src="assets/tool-logos/fast.png" alt="" aria-hidden="true" width="24" height="24"/></span><span>FAST</span></span><span class="tag tool-tag"><svg class="tool-icon" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H5v20h14V7zM14 2v5h5M8 15l3 3 5-6"/></svg><span>Invoice validation</span></span><span class="tag tool-tag"><svg class="tool-icon" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h7v18H4zM15 3h5v18h-5M6 7h3M6 11h3m4 4 2 2 5-5"/></svg><span>Ledger reconciliations</span></span></div>
 <h3 class="skill-group-title mt-lg">Credential-based knowledge</h3>
-<div class="tag-row mb-xl"><span class="tag">SQL (Advanced) credential</span><span class="tag">Microsoft Fabric certification</span><span class="tag">Alteryx certification</span></div>
+<div class="tag-row mb-xl"><span class="tag tool-tag"><svg class="tool-icon" aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 4 18 4 18 0V5M3 12c0 4 18 4 18 0"/></svg><span>SQL (Advanced) credential</span></span><span class="tag tool-tag"><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/fabric.svg" alt="" aria-hidden="true" width="24" height="24"/></span><span>Microsoft Fabric certification</span></span><span class="tag tool-tag"><span class="brand-icon"><img class="tool-brand-image" src="assets/tool-logos/alteryx.png" alt="" aria-hidden="true" width="24" height="24"/></span><span>Alteryx certification</span></span></div>
 </div>
 <div class="skill-group">
 <h3 class="skill-group-title">Tax &amp; Finance Domain</h3>

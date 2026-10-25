@@ -1,5 +1,5 @@
-# AR reporting demonstration
+# Accounts receivable intelligence
 
-Work-informed method with 98 aggregate-calibrated fictional current invoices and 80 prior invoices. Invoice details are fictional; aggregate balances and customer/staff/ageing proportions retain the earlier presentation.
+The AR workbook, dashboard gallery and project documentation are grouped in [the AR project folder](projects/ar-intelligence/README.md).
 
-The Excel workbook retains six KPI cards, native charts, customer/staff/status filters, invoice schedules and six reconciliation checks. The 20% threshold is illustrative, not a company credit policy. No testimonial or measured business result is claimed.
+[View the case study](https://ntxhien25.github.io/ar-reconciliation.html).
