@@ -141,100 +141,407 @@ main>.section,main>section{scroll-margin-top:90px}.metric{border-color:var(--cas
 main>section{background:var(--case-surface);border:1px solid var(--case-border);border-radius:16px;padding:36px;margin:36px 0;box-shadow:0 12px 32px rgba(0,0,0,.12)}main>section:first-child{padding:0;border:0;background:none;box-shadow:none}.panel{background:var(--bg);border-color:var(--case-border);position:relative;overflow:hidden}.panel .number{font-family:'IBM Plex Serif',Georgia,serif;font-size:2.2rem;font-weight:700;color:var(--case-accent)}main>section:first-child .panel:before{content:'';position:absolute;left:0;top:0;height:100%;width:4px;background:var(--case-accent)}.table-scroll{border:1px solid var(--case-border);border-radius:10px}.charts-grid figure{border:1px solid var(--case-border)}@media(max-width:768px){main>section{padding:24px}}
 </style><link rel="icon" type="image/png" href="portfolio-monogram.png">
 <link rel="stylesheet" href="portfolio-case.css?v=20261019-details"/>
+<style id="vat-story-style">
+.vat-contribution .grid {grid-template-columns:repeat(3,minmax(0,1fr));}
+.vat-contribution h2 {font-family:Inter,system-ui,sans-serif;font-size:1.25rem;line-height:1.35;font-weight:700;color:var(--case-accent);margin:0 0 14px;}
+.vat-contribution p {margin:0;font-size:1rem;line-height:1.65;}
+.vat-technical {margin-top:24px;border-top:1px solid var(--case-border);}
+.vat-chart-code {margin:16px 0 0;padding:0 12px;border:1px solid #dce2eb;border-radius:8px;background:#fff;color:#172033;}
+.vat-chart-code summary {display:flex;align-items:center;gap:10px;color:#a63e20;font-weight:600;list-style:none;}
+.vat-chart-code summary::-webkit-details-marker {display:none;}
+.vat-chart-code p {color:#4e5c70;font-size:.9rem;}
+.vat-chart-code a {color:#a63e20;}
+.vat-chart-code h3 {color:#172033;font-size:1rem;}
+.vat-chart-code pre {max-height:420px;overflow:auto;background:#f7f8fa;color:#172033;border-color:#dce2eb;}
+.vat-code-arrow {display:inline-block;font-size:1.2rem;}
+.vat-chart-code[open] .vat-code-arrow {transform:rotate(180deg);}
+@media(max-width:760px){.vat-contribution .grid{grid-template-columns:1fr;}}
+</style>
+<style id="vat-revision2-style">
+/* AR heading colours, scoped to this VAT document. */
+body{--vat-heading:#F8FAFC}html[data-theme="light"] body{--vat-heading:#0F172A}
+h1,h2,h3,h4{color:var(--vat-heading)!important}
+.vat-chart-code h3{color:#172033!important}
+.vat-tool{display:inline-flex;align-items:center;gap:7px}
+.vat-brand{display:inline-flex;width:20px;height:20px;flex:0 0 20px;align-items:center;justify-content:center;padding:2px;background:#fff;border-radius:4px}
+.vat-brand img{display:block;width:100%;height:100%;object-fit:contain}.vat-brand-wide{width:30px;flex-basis:30px}
+.vat-chart-code summary{min-height:44px;border-radius:6px;padding:10px 8px;background:#f9f4ee;line-height:1.5}
+.vat-chart-code summary:hover{background:#f4e7dc}.vat-code-arrow{font-size:1.5rem;font-weight:700;flex:0 0 22px}
+</style>
+<style id="vat-ar-alignment">
+main>section.vat-contribution{padding:0;border:0;background:none;box-shadow:none;margin:40px 0}
+.vat-contribution .grid{gap:16px}
+.vat-contribution .panel{padding:24px;background:var(--case-surface);border:1px solid rgba(255,255,255,.08);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.vat-contribution .panel::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--case-accent)}
+.vat-contribution h2{font-size:1.25rem;font-weight:700;line-height:1.35;margin:0 0 14px}
+.vat-contribution p{font-size:1rem;line-height:1.65;color:#CBD5E1;margin:0}
+html[data-theme="light"] .vat-contribution .panel{border-color:#E2E8F0;box-shadow:0 10px 25px rgba(0,0,0,.06)}
+html[data-theme="light"] .vat-contribution p{color:#334155}
+.case-contents{justify-content:flex-start;gap:8px 28px}
+.case-contents>span{flex:0 0 100%}
+.case-contents a{flex:0 0 auto}
+.vat-action-icon{flex:0 0 20px;width:20px;height:20px}
+.case-hero .evidence-note{max-width:100%;margin:20px 0 24px}
+.case-hero .evidence-note strong{color:var(--case-accent)}
+.case-hero .evidence-note p{margin:5px 0 0}
+</style>
+<style id="vat-story-refinement">
+.vat-story-box .phase-badge{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--case-accent);margin-bottom:16px}
+.vat-chart-code{padding:0;border:0;background:transparent;margin-top:12px}
+.vat-chart-code summary{display:flex;gap:7px;min-height:0;padding:6px 0;background:transparent;color:#C9542E;font-size:.95rem;font-weight:500;line-height:1.5}
+.vat-chart-code summary:hover{background:transparent;color:#A8431F;text-decoration:underline}
+.vat-chart-code .vat-code-arrow{font-size:.7rem;flex:0 0 auto;color:inherit}
+.vat-chart-code[open] .vat-code-arrow{transform:rotate(90deg)}
+</style>
+<style id="vat-context-refinement">
+.vat-results-label{font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--case-accent);margin-bottom:16px}
+.charts-grid figcaption{font-size:.75rem;line-height:1.35;padding:4px 0 0;margin:0}
+.charts-grid .vat-chart-code{margin:2px 0 0;padding:0}
+.charts-grid .vat-chart-code summary{font-size:.75rem;line-height:1.35;padding:3px 0;gap:5px;margin:0}
+.charts-grid .vat-chart-code .vat-code-arrow{font-size:.55rem}
+.vat-technical pre{font-size:.8rem;line-height:1.5;padding:16px;white-space:pre;}
+.vat-technical pre code{font-size:inherit;line-height:inherit}
+.vat-context-note{margin-top:16px}.vat-context-note summary{color:var(--case-accent)}
+</style>
+<style>.vat-scope-note,.vat-regulatory-date{font-size:.75rem;line-height:1.5;color:var(--case-secondary)}.vat-scope-note{margin:8px 0 12px}.vat-data-issues li+li{margin-top:12px}</style>
 </head>
 <body>
-<a class="case-skip" href="#case-content">Skip to case study</a><nav class="case-nav" aria-label="Project navigation"><div class="wrap case-nav-inner"><a class="case-brand" href="index.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5"/></svg><span>Hien Nguyen</span></a><div class="case-nav-actions"><a class="case-back" href="index.html#projects"><span aria-hidden="true">←</span> Portfolio Projects</a><button class="case-theme" id="theme-toggle" aria-label="Switch to light mode" title="Switch colour theme" type="button"><svg aria-hidden="true" class="sun-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg aria-hidden="true" class="moon-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg></button></div></div></nav><header class="case-hero"><div class="wrap"><div class="case-tags"><span class="case-tag">Python &amp; pandas</span><span class="case-tag">GDT &amp; MISA</span><span class="case-tag">Invoice Reconciliation</span><span class="case-tag">Exception Review</span><span class="case-tag">Traceable Amount Checks</span></div><h1>VAT Invoice Reconciliation Engine</h1><aside class="evidence-note"><strong>Work-informed method, fictional data</strong><p>Fictional invoice details illustrate the workflow; aggregate counts and reconciliation breakdowns retain the earlier presentation.</p></aside><p class="lead">Help the VAT return preparer spend less time comparing invoice records and more time resolving exceptions before preparing the VAT return.</p><div class="case-meta"><div><div class="case-meta-label">Domain expertise</div><div class="case-meta-value">VAT &amp; Tax Technology</div></div><div><div class="case-meta-label">Demonstration scope</div><div class="case-meta-value">839 Input / 189 Output Illustrative Invoices</div></div><div><div class="case-meta-label">Validation</div><div class="case-meta-value">3 Amount Checks · 21 Tests</div></div><div><div class="case-meta-label">Management value</div><div class="case-meta-value">Traceable Exception Review</div></div></div><div class="actions">
-<a class="button primary" href="VAT_Reconciliation_Demo.html">Read the notebook</a>
-<a class="button" download="" href="vat-reconciliation-demo.zip">Download project files</a>
-<a class="button" download="" href="VAT_Reconciliation_Demo.ipynb">Download notebook</a>
-<a class="button" href="https://github.com/ntxhien25/vat-invoice-reconciliation" rel="noopener noreferrer" target="_blank">View code on GitHub</a>
-</div></div></header><main class="wrap" id="case-content"><nav class="case-contents" aria-label="On this page"><span>IN THIS CASE</span><a href="#business-context">The business situation</a><a href="#case-section-2">The task</a><a href="#case-section-3">The solution</a><a href="#case-section-4">Value to the VAT return preparer</a><a href="#case-section-5">Reconciliation results</a><a href="#case-section-6">How the matching works</a><a href="#notebook-preview">Explore the analysis</a><a href="#case-section-8">Technical evidence</a><a href="#case-section-9">Scope of the public demo</a></nav>
+<a class="case-skip" href="#case-content">Skip to case study</a><nav class="case-nav" aria-label="Project navigation"><div class="wrap case-nav-inner"><a class="case-brand" href="index.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 10 5-10 5L2 8l10-5Zm-10 9 10 5 10-5M2 16l10 5 10-5"/></svg><span>Hien Nguyen</span></a><div class="case-nav-actions"><a class="case-back" href="index.html#projects"><span aria-hidden="true">←</span> Portfolio Projects</a><button class="case-theme" id="theme-toggle" aria-label="Switch to light mode" title="Switch colour theme" type="button"><svg aria-hidden="true" class="sun-icon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg aria-hidden="true" class="moon-icon" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg></button></div></div></nav><header class="case-hero"><div class="wrap"><div class="case-tags"><span class="case-tag vat-tool">PowerShell launcher</span><span class="case-tag vat-tool">Python / Playwright</span><span class="case-tag vat-tool">pandas</span><span class="case-tag vat-tool">Excel reports</span><span class="case-tag vat-tool">MISA exports</span></div><h1>VAT Invoice Reconciliation Engine</h1><aside class="evidence-note"><strong>Work-informed public example</strong><p>Aggregate-calibrated fictional records illustrate a work-informed method. Invoice details are fictional; aggregate counts and reconciliation breakdowns retain the earlier presentation.</p></aside><p class="lead">I automated monthly GDT invoice-list downloads and reconciled them with MISA accounting records, giving the VAT preparer a visual overview and two Excel reports for investigating differences.</p><div class="actions">
+<a class="button primary" href="VAT_Reconciliation_Demo.html"><svg class="vat-action-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6a3 3 0 0 1 3 3v14a4 4 0 0 0-4-2H4V4Zm16 0h-4a3 3 0 0 0-3 3v14a4 4 0 0 1 4-2h3V4Z"/></svg>Read the notebook</a>
+<a class="button" download="" href="vat-reconciliation-demo.zip"><svg class="vat-action-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 9-4 9 4v10l-9 4-9-4V7Zm0 0 9 4 9-4M12 11v10M8 5l9 4v4"/></svg>Download project files</a>
+<a class="button" download="" href="VAT_Reconciliation_Demo.ipynb"><svg class="vat-action-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M4 15v5h16v-5"/></svg>Download notebook</a>
+<a class="button" href="https://github.com/ntxhien25/vat-invoice-reconciliation" rel="noopener noreferrer" target="_blank"><svg class="vat-action-icon" aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 4l-4 16"/></svg>View code on GitHub</a>
+</div></div></header><main class="wrap" id="case-content"><nav class="case-contents" aria-label="On this page"><span>IN THIS CASE</span><a href="#business-context">The story</a><a href="#case-section-5">Results</a><a href="#downloads">Downloads</a></nav>
 
-<section aria-label="Project scope">
+<section aria-label="My contribution at a glance" class="vat-contribution">
 <div class="grid">
-<div class="panel"><div class="number">3</div><h3>Independent amount checks</h3><p>Value excluding VAT, invoice total and VAT amount.</p></div>
-<div class="panel"><div class="number">4</div><h3>Review sheets per workbook</h3><p>Matching, mismatch review, GDT only and MISA only.</p></div>
-<div class="panel"><div class="number">21</div><h3>Repeatable tests</h3><p>Leading zeros, missing amounts, duplicate keys, source counts and Excel exports.</p></div>
-</div>
+<div class="panel"><h2>Business need</h2><p>Check invoices collected from staff, then compare the printed invoices with accounting entries before preparing the VAT return.</p></div>
+<div class="panel"><h2>My contribution</h2><p>Automated GDT downloads with Python and Playwright, then built reconciliation charts and separate input/output Excel reports.</p></div>
+<div class="panel"><h2>Practical value</h2><p>Give the preparer a focused list of missing records and amount issues to investigate.</p></div>
+</div></section>
+<section aria-labelledby="business-context" class="vat-story-box">
+<div class="phase-badge">The situation / Before the workflow</div>
+<h2 id="business-context">Two rounds of checking built on an assumed-complete invoice list</h2>
+<p>The group’s workload covered approximately <strong>1,000 input invoices and 400 output invoices per month across two companies</strong>. <strong>The automation was applied to one company in the group.</strong> The accountant relied on MISA meInvoice’s advertised synchronisation with the GDT portal, assuming that its monthly input and output invoice lists were complete.</p>
+<p>Based on that assumption, the accountant performed two rounds of checking:</p>
+<ol><li><strong>Check the collected e-invoices.</strong> Compare e-invoices submitted by staff in other departments with the invoices shown in meInvoice, then follow up documents that appeared to be missing.</li>
+<li><strong>Check the printed invoices against accounting entries.</strong> Print the e-invoices collected in the first round and check for missing invoices and differences in invoice amounts, VAT and other information. Use the checked records to prepare the VAT return.</li></ol>
+<p><strong>The gap I identified:</strong> Before building the automation, I manually checked the records and found that the meInvoice data did not always capture the invoices incurred for the month. Checking documents against that same incomplete list could leave invoices outside both rounds of review.</p>
+<p>Two distinct data issues affected the reliability of the monthly review:</p>
+<ol class="vat-data-issues"><li><strong>Incomplete synchronisation.</strong> Invoices already available on the GDT portal may be absent from meInvoice when the connection or synchronisation process is interrupted.</li>
+<li><strong>Timing differences in supplier reporting.</strong> Invoice data transmitted by suppliers after the initial review will not appear in an earlier download, even if synchronisation is working.</li></ol>
+<p>The first issue calls for checking and restoring synchronisation; the second calls for refreshing the data and reviewing subsequent additions. Both require reconciliation before the invoice population is treated as complete.</p>
+<details class="vat-context-note"><summary>Data completeness: key considerations and implications</summary>
+<p><strong>1. System connectivity.</strong> MISA’s guidance identifies loss of connectivity with the tax authority’s portal as a cause of interrupted invoice synchronisation. The preparer should confirm that synchronisation has completed and investigate differences between the portal records and the software extract. <a href="https://helpact.misa.vn/kb/lam-the-nao-khi-dich-vu-xu-ly-hoa-don-dau-vao-mat-ket-noi-voi-cqt/" target="_blank" rel="noopener noreferrer">MISA technical guidance</a>.</p>
+<p><strong>2. Timing of invoice-data transmission.</strong> The invoice date and the date on which data becomes available on the tax authority’s system may differ. Under the 2025 framework, specified suppliers could transmit data by the applicable VAT return filing deadline. Consequently, an extract obtained before that deadline might not include all subsequently reported invoices. The 20th of the following month relates to the monthly filing deadline; it is not a general invoice issuance or upload deadline. <a href="https://baochinhphu.vn/nhung-noi-dung-moi-cua-nghi-dinh-so-70-2025-nd-cp-ve-hoa-don-chung-tu-102250903091616929.htm" target="_blank" rel="noopener noreferrer">2025 regulatory guidance</a>; <a href="https://www.pwc.com/vn/en/publications/2025/250416-changes-to-invoicing-regulations.pdf" target="_blank" rel="noopener noreferrer">PwC Vietnam NewsBrief, April 2025</a>.</p>
+<p><strong>Implications for the company.</strong> A completed synchronisation does not, on its own, demonstrate that the invoice population is complete. The preparer should reconcile the latest portal data, supplier invoices and accounting records, investigate exceptions and retain evidence of the review before finalising the VAT return.</p>
+<p class="vat-regulatory-date"><strong>Regulatory context.</strong> The Decree 70 discussion above concerns the framework effective from 1 June 2025. Decree 254/2026 and Circular 91/2026 replaced that framework from 1 July 2026; the rules applicable to the relevant reporting period should be considered. <a href="https://www.ey.com/en_vn/technical/tax/tax-and-law-updates/decree-254-2025-nd-cp-on-electronic-invoices-and-electronic-documents" target="_blank" rel="noopener noreferrer">EY Vietnam Tax Alert, July 2026</a>.</p>
+</details>
 </section>
-<section aria-labelledby="business-context">
-<h2 id="business-context">The business situation</h2>
-<p>VAT return preparation may require comparison of invoice exports against accounting schedules. Records available in one source may be absent or recorded differently in another.</p>
-<p>This demonstration compares fictional GDT-style invoice records with fictional MISA-style schedules to show how completeness and amount differences can be reviewed.</p>
-<p>This creates a completeness risk during VAT return preparation: an invoice may be available in one source but absent from the documents or accounting schedule being reviewed. Reconciling GDT records against MISA schedules helps identify those gaps for follow-up.</p>
+<section aria-labelledby="my-contribution" class="vat-story-box">
+<div class="phase-badge">My contribution</div>
+<h2 id="my-contribution">From manual investigation to automated reconciliation</h2>
+<p>I first investigated the gaps manually, then built the automated comparison to make that review repeatable.</p>
+<p>I used Python and Playwright to automate downloading monthly input and output invoice lists from GDT. PowerShell can launch the Python automation.</p>
+<p>I built Python reconciliation between GDT exports and MISA accounting/VAT schedules, comparing invoice number, issue date and the relevant tax code, then checking the net amount, VAT and invoice total.</p>
+<p>The charts provide an overview of differences. Separate input and output Excel reports identify missing records and amount differences so the preparer can trace and investigate individual invoices.</p>
+<p>With this workflow, the invoice-checking activity took 15–20 minutes instead of approximately two hours. Supporting-document completeness and tax treatment still require the preparer’s judgment.</p>
 </section>
+
+
 <section>
-<h2 id="case-section-2">The task</h2>
-<p>Develop a repeatable reconciliation workflow that brings GDT invoice exports and MISA VAT return schedules together, compares VAT input and VAT output invoices separately, and produces a clear list of items requiring review.</p>
-<p>The review covers invoice completeness, invoice status, amounts excluding VAT, VAT amounts and invoice totals, with source references that allow the preparer to trace each exception.</p>
-</section>
-<section>
-<h2 id="case-section-3">The solution</h2>
-<div class="grid">
-<div class="panel"><h3>Collect and prepare</h3><p>Combine GDT records for coded, uncoded and cash-register VAT input invoices. Load VAT output invoices and the corresponding MISA schedules, retaining source references.</p></div>
-<div class="panel"><h3>Match and compare</h3><p>Match invoice number, issue date and seller’s or purchaser’s tax code. Check net amounts, VAT and invoice totals independently, and flag missing amounts or duplicate matching keys.</p></div>
-<div class="panel"><h3>Review the exceptions</h3><p>Summarise the results in charts and prepare separate input and output workbooks showing matching records, amount exceptions and records found in only one source.</p></div>
-</div>
-</section>
-<section>
-<h2 id="case-section-4">Value to the VAT return preparer</h2>
+<h2 id="case-section-4">Less manual checking, a focused review of differences</h2>
 <div class="grid" style="margin-bottom:24px">
-<div class="panel"><div class="number">2 hours</div><h3>Reported manual baseline</h3><p>Approximately two hours reported for manual printing and checking; not a controlled timing study.</p></div>
-<div class="panel"><div class="number">15–20 min</div><h3>Estimated target, pending validation</h3><p>Target time using the reconciliation workflow. Requires validation through a comparable end-to-end run.</p></div>
-<div class="panel"><div class="number">≈83–88%</div><h3>Potential time reduction</h3><p>Estimated reduction from 120 minutes to 15–20 minutes. The estimate awaits a comparable timed review and does not cover total VAT return preparation.</p></div>
+<div class="panel"><div class="number">2 hours</div><h3>Before the workflow</h3><p>Approximately two hours spent printing invoices and checking them against accounting entries.</p></div>
+<div class="panel"><div class="number">15–20 min</div><h3>With the reconciliation workflow</h3><p>Actual time for the invoice-checking activity using the reconciliation workflow.</p></div>
+<div class="panel"><div class="number">≈83–88%</div><h3>Time reduction</h3><p>Reduced from approximately 120 minutes to 15–20 minutes for the invoice printing/checking activity.</p></div>
 </div>
-<p>The workflow can save preparation time by automating the comparison of invoice records and directing attention to exceptions. Rather than manually comparing every record across the two datasets, the preparer can review missing invoices, amount differences, customs declarations and prior-period items using a traceable reconciliation report.</p>
-<p>It also provides a consistent basis for checking input and output VAT totals before preparing the VAT return. Supporting-document checks and decisions on input VAT deductibility remain part of the preparer’s review.</p>
-<p><strong>Demonstration scope:</strong> 839 illustrative GDT input invoices and 189 output invoices. Invoice details are fictional; counts and reconciliation breakdowns retain the earlier aggregate presentation.</p>
+<p>Automated comparisons and two Excel exception reports reduced manual checking and gave the preparer specific differences to investigate. The time saving applies to invoice printing/checking, rather than total VAT return preparation.</p>
 </section>
 <section>
+<div class="phase-badge vat-results-label">Visualization &amp; reconciliation</div>
 <h2 id="case-section-5">Reconciliation results</h2>
+<p class="vat-scope-note">These group-wide volumes are distinct from the single-company scope of this case study and its fictional demonstration data.</p>
+<p><strong>About the public example:</strong> The method is work-informed. Invoice details are fictional and calibrated to retained aggregate counts and reconciliation breakdowns; these are not independently generated aggregates or measured business outcomes.</p>
 <div class="charts-grid">
-<figure><a aria-label="Open invoice status chart at full size" href="assets/portfolio-evidence-2.png" rel="noopener noreferrer" target="_blank"><img alt="Illustrative input invoices: GDT 839, MISA 774. Output invoices: GDT 189, MISA 182." src="assets/portfolio-evidence-2.png" width="1543" height="816"/></a><figcaption>Invoice details are fictional; source counts retain the earlier aggregate presentation.</figcaption></figure>
-<figure><a aria-label="Open reconciliation chart at full size" href="assets/vat-reconciliation-overview.png" rel="noopener noreferrer" target="_blank"><img alt="Illustrative inputs: 715 agreeing pairs, 33 reviews, 91 GDT-only and 26 MISA-only records. Outputs: 182 agreeing pairs and seven GDT-only records." src="assets/vat-reconciliation-overview.png" width="1556" height="816"/></a><figcaption>Matching, amount review and source-only records, counted separately for each source.</figcaption></figure>
+<figure><a aria-label="Open invoice status chart at full size" href="assets/portfolio-evidence-2.png" rel="noopener noreferrer" target="_blank"><img alt="Illustrative input invoices: GDT 839, MISA 774. Output invoices: GDT 189, MISA 182." src="assets/portfolio-evidence-2.png" width="1543" height="816"/></a><details class="vat-chart-code"><summary><span class="vat-code-arrow" aria-hidden="true">▶</span> Show Python code · Source and status chart</summary>
+<p>Uses the current public project module and packaged fictional inputs. This example displays the chart without overwriting the approved image. The plotting function below is copied directly from that module; its constants and helper functions remain in the project file.</p>
+<pre tabindex="0" aria-label="Python example for source and status chart"><code>from pathlib import Path
+import json
+import matplotlib.pyplot as plt
+import vat_reconciliation as vr
+
+# Run from a separate copy of the extracted public project.
+root = Path.cwd()
+month = &#x27;2025-04&#x27;
+tax_code = json.loads((root / &#x27;demo_config.json&#x27;).read_text())[&#x27;tax_code&#x27;]
+gdt, diagnostics = vr.load_gdt_folder(root, month, tax_code)
+if not diagnostics.status.eq(&#x27;loaded&#x27;).all():
+    raise ValueError(&#x27;All four GDT source files are required.&#x27;)
+misa = vr.read_misa(root / &#x27;MISA_VAT_Return_Schedules.xlsx&#x27;, month)
+overview = vr.source_status_overview(gdt, misa)
+figure = vr.plot_comparison(overview, month)
+plt.show()</code></pre>
+<p><a href="https://github.com/ntxhien25/vat-invoice-reconciliation/blob/f0dd77708ffc150f00ff0eb99af1b5c5dbeb4591/vat_reconciliation.py" target="_blank" rel="noopener noreferrer">View the complete source and dependencies on GitHub</a></p>
+<h3>Drawing the chart</h3><pre tabindex="0" aria-label="Matplotlib drawing function"><code>def plot_comparison(overview, month, matching=False, palette=&quot;modern&quot;):
+    &quot;&quot;&quot;Matplotlib source-level counts; review records are not labelled tax errors.&quot;&quot;&quot;
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from matplotlib.colors import to_rgb
+    columns = [&#x27;Matched Invoices&#x27;, &#x27;Amount Differences / Missing Values&#x27;, &#x27;Unmatched / Duplicate-Key Records&#x27;] if matching else list(STATUS_LABELS.values())
+    if palette not in STATUS_PALETTES:raise ValueError(f&#x27;Unknown invoice-status palette: {palette}&#x27;)
+    colors = [&#x27;#237C73&#x27;, &#x27;#D99332&#x27;, &#x27;#527DA8&#x27;] if matching else [STATUS_PALETTES[palette][column] for column in columns]
+    opacity = .95 if palette == &#x27;modern&#x27; else 1
+    if matching and palette == &#x27;modern&#x27;:
+        colors = [&#x27;#A0AEC0&#x27;, &#x27;#EA580C&#x27;, &#x27;#991B1B&#x27;]
+    fig, axes = plt.subplots(1, 2, figsize=(11.5, 5.0), facecolor=&#x27;#FFFFFF&#x27;)
+    for axis, name in zip(axes, [&#x27;Input VAT Invoices&#x27;, &#x27;Output VAT Invoices&#x27;]):
+        axis.set_facecolor(&#x27;#FFFFFF&#x27;)
+        data = overview.loc[overview[&#x27;Invoice Type&#x27;].eq(name)].set_index(&#x27;Source&#x27;).reindex([&#x27;GDT&#x27;, &#x27;MISA&#x27;])
+        bottom = np.zeros(2)
+        maximum = max(float(data[columns].sum(axis=1).max()), 1)
+        small_segments = []
+        for column, color in zip(columns, colors):
+            values = data[column].to_numpy(dtype=float)
+            legend_label = &#x27;Matching Amounts&#x27; if matching and column == &#x27;Matched Invoices&#x27; else column
+            if matching and column == &#x27;Amount Differences / Missing Values&#x27;:legend_label=&#x27;Amount Diff / Missing Values&#x27;
+            bars = axis.bar([&#x27;GDT&#x27;, &#x27;MISA&#x27;], values, bottom=bottom, label=legend_label, color=color, alpha=opacity, edgecolor=&#x27;none&#x27;, width=.55)
+            r, g, b = to_rgb(color)
+            lum = 0.2126*r + 0.7152*g + 0.0722*b
+            inner_text_c = &#x27;#0F172A&#x27; if lum &gt; 0.65 else &#x27;#FFFFFF&#x27;
+            for x, (bar, value) in enumerate(zip(bars, values)):
+                if not value:continue
+                center = bar.get_y() + bar.get_height() / 2
+                if value &lt; maximum * .04:
+                    short = {&#x27;Amount Differences / Missing Values&#x27;: &#x27;Amount Diff&#x27;, &#x27;Unmatched / Duplicate-Key Records&#x27;: &#x27;Unmatched&#x27;, &#x27;Matched Invoices&#x27;: &#x27;Matched&#x27;}.get(column, column.replace(&#x27; Invoices&#x27;, &#x27;&#x27;))
+                    label_color = &#x27;#64748B&#x27; if column in [&#x27;Other&#x27;, &#x27;Matched Invoices&#x27;] or color in [&#x27;#CBD5E1&#x27;, &#x27;#A0AEC0&#x27;] else (&#x27;#A05206&#x27; if color == &#x27;#D9822B&#x27; else color)
+                    small_segments.append((x, center, f&#x27;{short}: {int(value)}&#x27;, color, label_color))
+                else:
+                    axis.text(x, center, str(int(value)), ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=9.5,
+                              color=inner_text_c, fontweight=&#x27;bold&#x27;,
+                              bbox={&#x27;facecolor&#x27;: color, &#x27;alpha&#x27;: 0.15, &#x27;edgecolor&#x27;: &#x27;none&#x27;, &#x27;pad&#x27;: 2, &#x27;boxstyle&#x27;: &#x27;round,pad=0.25&#x27;})
+            bottom += values
+        for x, total in enumerate(bottom):
+            axis.text(x, total + max(bottom.max() * .028, .4), f&#x27;Total: {int(total)}&#x27;, ha=&#x27;center&#x27;, fontsize=10, fontweight=&#x27;bold&#x27;, color=&#x27;#0F172A&#x27;,zorder=6,bbox={&#x27;facecolor&#x27;:&#x27;white&#x27;,&#x27;edgecolor&#x27;:&#x27;none&#x27;,&#x27;pad&#x27;:.8})
+        slots = {0: 0, 1: 0}
+        for x, center, label, color, label_color in small_segments:
+            level = slots[x];slots[x] += 1
+            callout_x = 0.28 if x == 0 else 1.52
+            axis.annotate(label, xy=(x + .26, center), xytext=(callout_x, maximum * (1.13 + .11 * level)),
+                          ha=&#x27;left&#x27;, fontsize=8.5, color=label_color, fontweight=&#x27;bold&#x27;,
+                          zorder=4,arrowprops={&#x27;arrowstyle&#x27;: &#x27;-&#x27;, &#x27;color&#x27;: color, &#x27;linewidth&#x27;: 1.1, &#x27;relpos&#x27;: (0, 0),&#x27;shrinkA&#x27;:3,&#x27;shrinkB&#x27;:2},
+                          bbox={&#x27;facecolor&#x27;: &#x27;#FFFFFF&#x27;, &#x27;edgecolor&#x27;: color, &#x27;pad&#x27;: 2.2, &#x27;boxstyle&#x27;: &#x27;round,pad=0.25&#x27;, &#x27;linewidth&#x27;: 1.0})
+        if small_segments:
+            axis.set_xlim(-.5, 2.55)
+        headroom = max(1.22, 1.25 + .11 * (max(slots.values()) - 1)) if small_segments else 1.22
+        axis.set_ylim(0, max(maximum * headroom, 1))
+        axis.set_title(name, fontsize=12, fontweight=&#x27;bold&#x27;, color=&#x27;#0F172A&#x27;, pad=12)
+        axis.set_ylabel(&#x27;Source Records&#x27;, fontsize=10, color=&#x27;#475569&#x27;)
+        axis.spines[[&#x27;top&#x27;, &#x27;right&#x27;]].set_visible(False)
+        axis.spines[[&#x27;left&#x27;, &#x27;bottom&#x27;]].set_color(&#x27;#CBD5E1&#x27;)
+        axis.tick_params(colors=&#x27;#475569&#x27;, labelsize=9.5)
+        axis.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
+    handles, labels = axes[0].get_legend_handles_labels()
+    legend = fig.legend(handles, labels, loc=&#x27;upper center&#x27;, bbox_to_anchor=(.5, .93), ncol=2 if matching else 3, frameon=False, fontsize=9.5)
+    for label, color in zip(legend.get_texts(), colors):
+        legend_color = &#x27;#64748B&#x27; if color.upper() in [&#x27;#CBD5E1&#x27;, &#x27;#EBEBD3&#x27;, &#x27;#A0AEC0&#x27;] else (&#x27;#A05206&#x27; if color == &#x27;#D9822B&#x27; else color)
+        label.set_color(legend_color)
+        label.set_fontweight(&#x27;bold&#x27;)
+    title_text = f&#x27;{month} | &#x27; + (&#x27;Invoice Reconciliation Results&#x27; if matching else &#x27;Invoice Records by Source and Status&#x27;)
+    fig.suptitle(title_text, fontsize=13.5, fontweight=&#x27;bold&#x27;, color=&#x27;#0F172A&#x27;, y=.99)
+    fig.text(.5, .015, &#x27;Matching key: invoice number, issue date and seller’s/purchaser’s tax code. Each matched pair is counted once per source.&#x27; if matching else &#x27;Status counts include related original invoices; customs declarations remain separately identified.&#x27;, ha=&#x27;center&#x27;, fontsize=8.5, color=&#x27;#475569&#x27;)
+    fig.subplots_adjust(top=.72, bottom=.15, wspace=.28)
+    # Round the outer stack, keeping internal status boundaries flat. The radius
+    # is 10% of bar width; convert the vertical radius to preserve circular corners.
+    from matplotlib.path import Path as PlotPath
+    fig.canvas.draw()
+    for axis in axes:
+        for x in (0, 1):
+            segments = [bar for bar in axis.patches
+                        if abs(bar.get_x() + bar.get_width() / 2 - x) &lt; 1e-8]
+            if not segments: continue
+            total = max(bar.get_y() + bar.get_height() for bar in segments)
+            if total &lt;= 0: continue
+            width = segments[0].get_width()
+            left, right = x - width / 2, x + width / 2
+            x_pixels = axis.bbox.width / (axis.get_xlim()[1] - axis.get_xlim()[0])
+            y_pixels = axis.bbox.height / (axis.get_ylim()[1] - axis.get_ylim()[0])
+            radius_x = min(width * .10, total * y_pixels / (2 * x_pixels))
+            radius_y = radius_x * x_pixels / y_pixels
+            vertices = [(left+radius_x,0),(right-radius_x,0),
+                        (right,0),(right,radius_y),(right,total-radius_y),
+                        (right,total),(right-radius_x,total),(left+radius_x,total),
+                        (left,total),(left,total-radius_y),(left,radius_y),
+                        (left,0),(left+radius_x,0),(left+radius_x,0)]
+            codes = [PlotPath.MOVETO,PlotPath.LINETO,
+                     PlotPath.CURVE3,PlotPath.CURVE3,PlotPath.LINETO,
+                     PlotPath.CURVE3,PlotPath.CURVE3,PlotPath.LINETO,
+                     PlotPath.CURVE3,PlotPath.CURVE3,PlotPath.LINETO,
+                     PlotPath.CURVE3,PlotPath.CURVE3,PlotPath.CLOSEPOLY]
+            outline = PlotPath(vertices, codes)
+            for bar in segments: bar.set_clip_path(outline, axis.transData)
+    return fig</code></pre></details></figure>
+<figure><a aria-label="Open reconciliation chart at full size" href="assets/vat-reconciliation-overview.png" rel="noopener noreferrer" target="_blank"><img alt="Illustrative inputs: 715 agreeing pairs, 33 reviews, 91 GDT-only and 26 MISA-only records. Outputs: 182 agreeing pairs and seven GDT-only records." src="assets/vat-reconciliation-overview.png" width="1556" height="816"/></a><details class="vat-chart-code"><summary><span class="vat-code-arrow" aria-hidden="true">▶</span> Show Python code · Reconciliation chart</summary>
+<p>Uses the current public project module and packaged fictional inputs. This example displays the chart without overwriting the approved image. The plotting function below is copied directly from that module; its constants and helper functions remain in the project file.</p>
+<pre tabindex="0" aria-label="Python example for reconciliation results chart"><code>from pathlib import Path
+import json
+import matplotlib.pyplot as plt
+import vat_reconciliation as vr
+
+# Run from a separate copy of the extracted public project.
+root = Path.cwd()
+month = &#x27;2025-04&#x27;
+tax_code = json.loads((root / &#x27;demo_config.json&#x27;).read_text())[&#x27;tax_code&#x27;]
+gdt, diagnostics = vr.load_gdt_folder(root, month, tax_code)
+if not diagnostics.status.eq(&#x27;loaded&#x27;).all():
+    raise ValueError(&#x27;All four GDT source files are required.&#x27;)
+misa = vr.read_misa(root / &#x27;MISA_VAT_Return_Schedules.xlsx&#x27;, month)
+results = {direction: vr.reconcile(gdt, misa, month, direction)
+           for direction in (&#x27;purchases&#x27;, &#x27;sales&#x27;)}
+overview = vr.matching_overview(results, gdt, misa)
+figure = vr.plot_comparison(overview, month, matching=True)
+plt.show()</code></pre>
+<p><a href="https://github.com/ntxhien25/vat-invoice-reconciliation/blob/f0dd77708ffc150f00ff0eb99af1b5c5dbeb4591/vat_reconciliation.py" target="_blank" rel="noopener noreferrer">View the complete source and dependencies on GitHub</a></p>
+<h3>Drawing the chart</h3><pre tabindex="0" aria-label="Matplotlib drawing function"><code>def plot_comparison(overview, month, matching=False, palette=&quot;modern&quot;):
+    &quot;&quot;&quot;Matplotlib source-level counts; review records are not labelled tax errors.&quot;&quot;&quot;
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from matplotlib.colors import to_rgb
+    columns = [&#x27;Matched Invoices&#x27;, &#x27;Amount Differences / Missing Values&#x27;, &#x27;Unmatched / Duplicate-Key Records&#x27;] if matching else list(STATUS_LABELS.values())
+    if palette not in STATUS_PALETTES:raise ValueError(f&#x27;Unknown invoice-status palette: {palette}&#x27;)
+    colors = [&#x27;#237C73&#x27;, &#x27;#D99332&#x27;, &#x27;#527DA8&#x27;] if matching else [STATUS_PALETTES[palette][column] for column in columns]
+    opacity = .95 if palette == &#x27;modern&#x27; else 1
+    if matching and palette == &#x27;modern&#x27;:
+        colors = [&#x27;#A0AEC0&#x27;, &#x27;#EA580C&#x27;, &#x27;#991B1B&#x27;]
+    fig, axes = plt.subplots(1, 2, figsize=(11.5, 5.0), facecolor=&#x27;#FFFFFF&#x27;)
+    for axis, name in zip(axes, [&#x27;Input VAT Invoices&#x27;, &#x27;Output VAT Invoices&#x27;]):
+        axis.set_facecolor(&#x27;#FFFFFF&#x27;)
+        data = overview.loc[overview[&#x27;Invoice Type&#x27;].eq(name)].set_index(&#x27;Source&#x27;).reindex([&#x27;GDT&#x27;, &#x27;MISA&#x27;])
+        bottom = np.zeros(2)
+        maximum = max(float(data[columns].sum(axis=1).max()), 1)
+        small_segments = []
+        for column, color in zip(columns, colors):
+            values = data[column].to_numpy(dtype=float)
+            legend_label = &#x27;Matching Amounts&#x27; if matching and column == &#x27;Matched Invoices&#x27; else column
+            if matching and column == &#x27;Amount Differences / Missing Values&#x27;:legend_label=&#x27;Amount Diff / Missing Values&#x27;
+            bars = axis.bar([&#x27;GDT&#x27;, &#x27;MISA&#x27;], values, bottom=bottom, label=legend_label, color=color, alpha=opacity, edgecolor=&#x27;none&#x27;, width=.55)
+            r, g, b = to_rgb(color)
+            lum = 0.2126*r + 0.7152*g + 0.0722*b
+            inner_text_c = &#x27;#0F172A&#x27; if lum &gt; 0.65 else &#x27;#FFFFFF&#x27;
+            for x, (bar, value) in enumerate(zip(bars, values)):
+                if not value:continue
+                center = bar.get_y() + bar.get_height() / 2
+                if value &lt; maximum * .04:
+                    short = {&#x27;Amount Differences / Missing Values&#x27;: &#x27;Amount Diff&#x27;, &#x27;Unmatched / Duplicate-Key Records&#x27;: &#x27;Unmatched&#x27;, &#x27;Matched Invoices&#x27;: &#x27;Matched&#x27;}.get(column, column.replace(&#x27; Invoices&#x27;, &#x27;&#x27;))
+                    label_color = &#x27;#64748B&#x27; if column in [&#x27;Other&#x27;, &#x27;Matched Invoices&#x27;] or color in [&#x27;#CBD5E1&#x27;, &#x27;#A0AEC0&#x27;] else (&#x27;#A05206&#x27; if color == &#x27;#D9822B&#x27; else color)
+                    small_segments.append((x, center, f&#x27;{short}: {int(value)}&#x27;, color, label_color))
+                else:
+                    axis.text(x, center, str(int(value)), ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=9.5,
+                              color=inner_text_c, fontweight=&#x27;bold&#x27;,
+                              bbox={&#x27;facecolor&#x27;: color, &#x27;alpha&#x27;: 0.15, &#x27;edgecolor&#x27;: &#x27;none&#x27;, &#x27;pad&#x27;: 2, &#x27;boxstyle&#x27;: &#x27;round,pad=0.25&#x27;})
+            bottom += values
+        for x, total in enumerate(bottom):
+            axis.text(x, total + max(bottom.max() * .028, .4), f&#x27;Total: {int(total)}&#x27;, ha=&#x27;center&#x27;, fontsize=10, fontweight=&#x27;bold&#x27;, color=&#x27;#0F172A&#x27;,zorder=6,bbox={&#x27;facecolor&#x27;:&#x27;white&#x27;,&#x27;edgecolor&#x27;:&#x27;none&#x27;,&#x27;pad&#x27;:.8})
+        slots = {0: 0, 1: 0}
+        for x, center, label, color, label_color in small_segments:
+            level = slots[x];slots[x] += 1
+            callout_x = 0.28 if x == 0 else 1.52
+            axis.annotate(label, xy=(x + .26, center), xytext=(callout_x, maximum * (1.13 + .11 * level)),
+                          ha=&#x27;left&#x27;, fontsize=8.5, color=label_color, fontweight=&#x27;bold&#x27;,
+                          zorder=4,arrowprops={&#x27;arrowstyle&#x27;: &#x27;-&#x27;, &#x27;color&#x27;: color, &#x27;linewidth&#x27;: 1.1, &#x27;relpos&#x27;: (0, 0),&#x27;shrinkA&#x27;:3,&#x27;shrinkB&#x27;:2},
+                          bbox={&#x27;facecolor&#x27;: &#x27;#FFFFFF&#x27;, &#x27;edgecolor&#x27;: color, &#x27;pad&#x27;: 2.2, &#x27;boxstyle&#x27;: &#x27;round,pad=0.25&#x27;, &#x27;linewidth&#x27;: 1.0})
+        if small_segments:
+            axis.set_xlim(-.5, 2.55)
+        headroom = max(1.22, 1.25 + .11 * (max(slots.values()) - 1)) if small_segments else 1.22
+        axis.set_ylim(0, max(maximum * headroom, 1))
+        axis.set_title(name, fontsize=12, fontweight=&#x27;bold&#x27;, color=&#x27;#0F172A&#x27;, pad=12)
+        axis.set_ylabel(&#x27;Source Records&#x27;, fontsize=10, color=&#x27;#475569&#x27;)
+        axis.spines[[&#x27;top&#x27;, &#x27;right&#x27;]].set_visible(False)
+        axis.spines[[&#x27;left&#x27;, &#x27;bottom&#x27;]].set_color(&#x27;#CBD5E1&#x27;)
+        axis.tick_params(colors=&#x27;#475569&#x27;, labelsize=9.5)
+        axis.yaxis.set_major_locator(plt.MaxNLocator(integer=True))
+    handles, labels = axes[0].get_legend_handles_labels()
+    legend = fig.legend(handles, labels, loc=&#x27;upper center&#x27;, bbox_to_anchor=(.5, .93), ncol=2 if matching else 3, frameon=False, fontsize=9.5)
+    for label, color in zip(legend.get_texts(), colors):
+        legend_color = &#x27;#64748B&#x27; if color.upper() in [&#x27;#CBD5E1&#x27;, &#x27;#EBEBD3&#x27;, &#x27;#A0AEC0&#x27;] else (&#x27;#A05206&#x27; if color == &#x27;#D9822B&#x27; else color)
+        label.set_color(legend_color)
+        label.set_fontweight(&#x27;bold&#x27;)
+    title_text = f&#x27;{month} | &#x27; + (&#x27;Invoice Reconciliation Results&#x27; if matching else &#x27;Invoice Records by Source and Status&#x27;)
+    fig.suptitle(title_text, fontsize=13.5, fontweight=&#x27;bold&#x27;, color=&#x27;#0F172A&#x27;, y=.99)
+    fig.text(.5, .015, &#x27;Matching key: invoice number, issue date and seller’s/purchaser’s tax code. Each matched pair is counted once per source.&#x27; if matching else &#x27;Status counts include related original invoices; customs declarations remain separately identified.&#x27;, ha=&#x27;center&#x27;, fontsize=8.5, color=&#x27;#475569&#x27;)
+    fig.subplots_adjust(top=.72, bottom=.15, wspace=.28)
+    # Round the outer stack, keeping internal status boundaries flat. The radius
+    # is 10% of bar width; convert the vertical radius to preserve circular corners.
+    from matplotlib.path import Path as PlotPath
+    fig.canvas.draw()
+    for axis in axes:
+        for x in (0, 1):
+            segments = [bar for bar in axis.patches
+                        if abs(bar.get_x() + bar.get_width() / 2 - x) &lt; 1e-8]
+            if not segments: continue
+            total = max(bar.get_y() + bar.get_height() for bar in segments)
+            if total &lt;= 0: continue
+            width = segments[0].get_width()
+            left, right = x - width / 2, x + width / 2
+            x_pixels = axis.bbox.width / (axis.get_xlim()[1] - axis.get_xlim()[0])
+            y_pixels = axis.bbox.height / (axis.get_ylim()[1] - axis.get_ylim()[0])
+            radius_x = min(width * .10, total * y_pixels / (2 * x_pixels))
+            radius_y = radius_x * x_pixels / y_pixels
+            vertices = [(left+radius_x,0),(right-radius_x,0),
+                        (right,0),(right,radius_y),(right,total-radius_y),
+                        (right,total),(right-radius_x,total),(left+radius_x,total),
+                        (left,total),(left,total-radius_y),(left,radius_y),
+                        (left,0),(left+radius_x,0),(left+radius_x,0)]
+            codes = [PlotPath.MOVETO,PlotPath.LINETO,
+                     PlotPath.CURVE3,PlotPath.CURVE3,PlotPath.LINETO,
+                     PlotPath.CURVE3,PlotPath.CURVE3,PlotPath.LINETO,
+                     PlotPath.CURVE3,PlotPath.CURVE3,PlotPath.LINETO,
+                     PlotPath.CURVE3,PlotPath.CURVE3,PlotPath.CLOSEPOLY]
+            outline = PlotPath(vertices, codes)
+            for bar in segments: bar.set_clip_path(outline, axis.transData)
+    return fig</code></pre></details></figure>
 </div>
-<p class="chart-help">Select either chart to view it at full size.</p>
+<p class="chart-help">Select a chart to view it at full size. Use the downward-arrow “Show Python code” control directly beneath each chart to expand its code.</p>
 <div class="table-scroll"><table>
 <thead><tr><th>Direction / source</th><th>Records</th><th>Matching amounts</th><th>For review</th><th>Source only</th></tr></thead>
 <tbody><tr><td>Input / GDT</td><td>839</td><td>715</td><td>33</td><td>91</td></tr><tr><td>Input / MISA</td><td>774</td><td>715</td><td>33</td><td>26</td></tr><tr><td>Output / GDT</td><td>189</td><td>182</td><td>0</td><td>7</td></tr><tr><td>Output / MISA</td><td>182</td><td>182</td><td>0</td><td>0</td></tr></tbody>
 </table></div>
 <p style="margin-top:18px">The 33 input reviews have missing GDT net amounts. The 26 MISA-only records include 20 fictional customs declarations and six prior-period invoices. Automated tests separately cover amount differences and duplicate keys.</p>
 </section>
-<section>
-<h2 id="case-section-6">How the matching works</h2>
+
+
+<section aria-labelledby="downloads"><div class="phase-badge vat-results-label">Technical evidence &amp; downloads</div><h2 id="downloads">Downloads and scope</h2><h3>Two reports for the preparer</h3>
+<p><strong>Input VAT report:</strong> purchases matched using the seller’s tax code. <strong>Output VAT report:</strong> sales matched using the purchaser’s tax code. Both also use invoice number and issue date.</p>
+<ul><li><strong>Matching Reconciliations:</strong> matched records and agreeing amounts, with source references.</li>
+<li><strong>Mismatch Reconciliations:</strong> paired GDT/MISA records in review blocks, showing missing amounts and net/VAT/total differences.</li>
+<li><strong>Invoices Only From GDT:</strong> records without a corresponding MISA match, for follow-up.</li>
+<li><strong>Invoices Only From MISA:</strong> records outside the matched set, including customs or prior-period items requiring explanation.</li></ul>
+<p><strong>One demo period:</strong> April 2025. The former <code>2026-08</code> files were duplicate filename aliases, not a second dataset, and have been removed from the current repository. Six earlier-issued invoices are intentional timing-review items within the April MISA schedule.</p>
+<p>Start with the input or output report to see the review lists. The full project ZIP includes the notebook, source workbooks, Python code and tests.</p>
+
+<p>The project includes four fictional GDT-style workbooks and one fictional MISA-style workbook with purchase and sales schedules. A deterministic fixture specification and generator are included. Invoice-level names, identifiers, dates and amounts are fictional. Source volumes and reconciliation breakdowns retain the earlier aggregate presentation. No original invoice lookup links, client rows or credentials are included. Separate GDT download code is supplied for authorised use.</p>
+<p>Review classifications document project rules. They do not independently establish document type or eligibility for an input VAT credit. Demonstration results are not presented as measured client savings.</p>
+<div class="actions"><a class="button" download="" href="Input_VAT_Reconciliation_DEMO.xlsx">Sample input report</a><a class="button" download="" href="Output_VAT_Reconciliation_DEMO.xlsx">Sample output report</a></div>
+<details class="vat-technical"><summary>How the matching works</summary>
+
 <div class="grid">
 <div class="panel"><h3>1. Preserve the source</h3><p>Read invoice numbers and tax codes as text. Keep the original values and source row references.</p></div>
 <div class="panel"><h3>2. Match invoice details</h3><p>Use invoice number, issue date and the seller’s tax code for inputs, or purchaser’s tax code for outputs. Check duplicate keys before joining.</p></div>
 <div class="panel"><h3>3. Explain differences</h3><p>Compare all three amounts and retain blank net amounts as missing. Present each GDT review record above its MISA counterpart.</p></div>
 </div>
 <details><summary>Inspect a matching-key function</summary><pre><code>def comparison_identifier(value):
-
     value = str(value)
-
     return (value.lstrip("0") or "0") if value.isdigit() else value
 
-
-
 # Normalised keys are separate from the original invoice fields.
-
 data["key_invoice_number"] = data.invoice_number.map(comparison_identifier)</code></pre></details>
-</section>
-<section aria-labelledby="notebook-preview">
+</details><details class="vat-technical"><summary>Explore the step-by-step notebook</summary>
 <h2 id="notebook-preview">Explore the analysis</h2>
-<p>Read the notebook’s guidance, Python cells, charts and reconciliation tables directly below. The complete version is available in a separate page, and the downloadable notebook can be run with the five fictional Excel source files.</p>
+<p>Follow the working notebook’s steps below: load the sources, inspect invoice statuses and special cases, reconcile input and output records, draw the charts and export two Excel reports. Private configuration and records are replaced with the approved April 2025 example.</p>
 <p><a href="VAT_Reconciliation_Demo.html" rel="noopener noreferrer" target="_blank">Open the full notebook</a></p>
 <iframe loading="lazy" src="VAT_Reconciliation_Demo.html" style="width:100%;height:800px;border:1px solid var(--line);border-radius:12px;background:white" title="VAT reconciliation notebook with code, charts and tables"></iframe>
-</section>
-<section>
-<h2 id="case-section-8">Technical evidence</h2>
-<ul><li>pandas transformations, date handling and a validated one-to-one merge.</li><li>Duplicate-key controls that avoid inflated matching counts.</li><li>Source-level checks that reconcile output counts back to the input records.</li><li>Excel review workbooks and a reproducible Matplotlib chart.</li><li>A Python module, guided notebook, fictional source records calibrated to retained aggregate counts, fictional test fixtures and automated tests.</li></ul>
-<div class="actions"><a class="button" download="" href="Input_VAT_Reconciliation_DEMO.xlsx">Sample input report</a><a class="button" download="" href="Output_VAT_Reconciliation_DEMO.xlsx">Sample output report</a></div>
-</section>
-<section>
-<h2 id="case-section-9">Scope of the public demo</h2>
-<p>The project includes four fictional GDT-style workbooks and one fictional MISA-style workbook with purchase and sales schedules. A deterministic fixture specification and generator are included. Invoice-level names, identifiers, dates and amounts are fictional. Source volumes and reconciliation breakdowns retain the earlier aggregate presentation. No invoice lookup links, client rows or portal access components are included.</p>
-<p>Review classifications document project rules. They do not independently establish document type or eligibility for an input VAT credit. Demonstration results are not presented as measured client savings.</p>
-</section>
+</details></section>
+
 </main><footer class="case-footer"><span>VAT Invoice Reconciliation Engine · Hien Nguyen</span><a href="index.html#projects">Return to Portfolio Overview ↑</a></footer>
 <dialog aria-label="Expanded reconciliation chart" class="chart-viewer" id="chart-viewer"><button id="close-chart" type="button">Close chart</button><img alt="" id="expanded-chart"/></dialog>
 <script>
